@@ -1,0 +1,53 @@
+include ../Makefile.common
+
+
+####
+
+
+MLS=raphael.ml
+MLIS=$(MLS:ml=mli)
+CMIS=$(LIBSOURCE:ml=cmi)
+CMOS=$(LIBSOURCE:ml=cmo)
+
+CMA=raphael.cma
+DLL=dllraphael.so
+
+CSOURCE=stubs.c
+COBJ=stubs.o
+
+
+####
+
+
+all: $(CMA)
+
+$(CMA): $(COBJ) $(CMOS)
+	ocamlmklib -o $(CMA) $^
+
+$(DLL): $(CMA)
+
+$(CMOS): $(CMIS)
+
+%.cmo: %.ml
+	$(OCAMLC) -g -c $<
+
+%.cmi: %.mli
+	$(OCAMLC) -g -c $<
+
+#fake stubs generation, borrowed from js_of_ocaml's Makefiles
+stubs.c: $(LIBSOURCE)
+	(echo "#include <stdlib.h>"; \
+	echo "#include <stdio.h>"; \
+	echo "#define D(f) void f () { fprintf(stderr, \"Unimplemented Javascript primitive %s!\\\\n\", #f); exit(1); }"; \
+	(sed -n -e 's/.*external.*"\([^"%]*\)".*/D(\1)/p' \
+	$(LIBSOURCE) | \
+	sort | uniq)) \
+	> stubs.c
+
+%.o: %.c
+	ocamlfind ocamlc -package js_of_ocaml -c $<
+
+
+clean:
+	rm -f $(CMOS) $(CMIS) $(CMA) $(DLL) $(CSOURCE) $(COBJ)
+

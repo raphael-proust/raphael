@@ -1,0 +1,5 @@
+JOO=js_of_ocaml
+JOODIR = $(shell ocamlfind query js_of_ocaml)
+
+OCAMLC=ocamlfind ocamlc -package $(JOO) -pp "camlp4o $(JOODIR)/pa_js.cmo"
+
