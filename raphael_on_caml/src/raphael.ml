@@ -34,7 +34,15 @@ class type bbox = object
 
 end
 
-class type element = object ('self)
+(* Attributes *)
+class type ['attr] with_attr = object
+  method attr: 'attr Js.t Js.readonly_prop
+  method animate: 'attr Js.t -> int -> Js.js_string Js.t -> unit Js.meth
+  method animate_callback: 'attr Js.t -> int -> Js.js_string Js.t -> unit Js.callback -> unit Js.meth
+end
+
+
+class type element = object
 
   method node: Dom.node Js.t Js.readonly_prop
 
@@ -50,11 +58,6 @@ class type element = object ('self)
   method translate: int -> int -> unit Js.meth
   method scale: int -> int -> int -> int -> unit Js.meth
 
-(*   method attr: 'attribute Js.t Js.readonly_prop *)
-
-(*   method animate: 'attribute Js.t -> int -> Js.js_string Js.t -> unit Js.meth *)
-(*   method animate_callback: 'attribute Js.t -> int -> Js.js_string Js.t -> unit Js.callback -> unit Js.meth *)
-
   method getBBox: unit -> bbox Js.t Js.meth
 
   method toFront: unit -> unit Js.meth
@@ -63,13 +66,42 @@ class type element = object ('self)
   method insertBefore: element Js.t -> unit Js.meth
   method insertAfter: element Js.t -> unit Js.meth
 
-  method clone: unit -> 'self Js.t Js.meth
+  method clone: unit -> element Js.t Js.meth
 
+end
+
+and circle = object
+  inherit element
+  inherit [Svg.circle_attr] with_attr
+end
+
+
+and rect = object
+  inherit element
+  inherit [Svg.rect_attr] with_attr
+end
+
+
+and ellipse = object
+  inherit element
+  inherit [Svg.ellipse_attr] with_attr
+end
+
+
+and image = object
+  inherit element
+  inherit [Svg.image_attr] with_attr
+end
+
+and text = object
+  inherit element
+  inherit [Svg.text_attr] with_attr
 end
 
 and path = object
 
   inherit element
+  inherit [Svg.path_attr] with_attr
 
   method getTotalLength: unit -> int Js.meth
   method getPointAtLength: int -> point Js.t Js.meth
@@ -94,12 +126,12 @@ end
 
 and paper = object
 
-  method circle: int -> int -> int -> element Js.t Js.meth
-  method rect: int -> int -> int -> int -> element Js.t Js.meth
-  method rect_rounded: int -> int -> int -> int -> int -> element Js.t Js.meth
-  method ellipse: int -> int -> int -> int -> element Js.t Js.meth
-  method image: Js.js_string Js.t -> int -> int -> int -> int -> element Js.t Js.meth
-  method text: int -> int -> Js.js_string Js.t -> element Js.t Js.meth
+  method circle: int -> int -> int -> circle Js.t Js.meth
+  method rect: int -> int -> int -> int -> rect Js.t Js.meth
+  method rect_rounded: int -> int -> int -> int -> int -> rect Js.t Js.meth
+  method ellipse: int -> int -> int -> int -> ellipse Js.t Js.meth
+  method image: Js.js_string Js.t -> int -> int -> int -> int -> image Js.t Js.meth
+  method text: int -> int -> Js.js_string Js.t -> text Js.t Js.meth
   method path: Js.js_string Js.t -> path Js.t Js.meth
 
   method set: unit -> set Js.t Js.meth
