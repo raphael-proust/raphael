@@ -1,4 +1,6 @@
 
+#js_of_ocaml Bindings for Raphaël
+
 ##Foreword
 
 This folder contains raphael bindings for the js_of_ocaml compiler. It is

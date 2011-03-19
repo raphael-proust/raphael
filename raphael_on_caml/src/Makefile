@@ -4,7 +4,7 @@ include ../Makefile.common
 ####
 
 
-MLS=raphael.ml
+MLS=svg.ml raphael.ml
 MLIS=$(MLS:ml=mli)
 CMIS=$(MLS:ml=cmi)
 CMOS=$(MLS:ml=cmo)
@@ -49,5 +49,5 @@ stubs.c:
 
 
 clean:
-	rm -f *.cm[ioa] *.so *.a $(CMOS) $(CMIS) $(DLL) $(CSOURCE) $(COBJ)
+	rm -f *.cm[ioa] *.so *.a a.out $(CMOS) $(CMIS) $(DLL) $(CSOURCE) $(COBJ)
 

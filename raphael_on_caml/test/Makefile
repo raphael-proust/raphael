@@ -4,7 +4,7 @@ include ../Makefile.common
 ####
 
 
-MLS=camltest.ml
+MLS=test.ml
 BYTES=$(MLS:ml=byte)
 TARGETS=$(MLS:ml=js)
 
@@ -17,9 +17,9 @@ DLL=../src/dllraphael.so
 all: $(TARGETS)
 
 %.js: %.byte
-	$(JOO) $<
+	$(JOO) -pretty $<
 
-%.byte: %.ml
+%.byte: %.ml $(DLL)
 	$(OCAMLC) -linkpkg -o $@ -I ../src $(DLL) $<
 
 clean:
