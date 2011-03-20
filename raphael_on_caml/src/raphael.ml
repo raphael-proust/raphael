@@ -37,10 +37,16 @@ end
 (* Attributes *)
 class type ['attr] with_attr = object
   method attr: 'attr Js.t Js.readonly_prop
+
   method animate: 'attr Js.t -> int -> unit Js.meth
   method animate_easing: 'attr Js.t -> int -> Js.js_string Js.t -> unit Js.meth
   method animate_callback: 'attr Js.t -> int -> (unit -> unit) Js.callback -> unit Js.meth
-  method animate_callbackeasing: 'attr Js.t -> int -> Js.js_string Js.t -> (unit -> unit) Js.callback -> unit Js.meth
+  method animate_easingcallback: 'attr Js.t -> int -> Js.js_string Js.t -> (unit -> unit) Js.callback -> unit Js.meth
+
+  method stop: unit -> unit Js.meth
+
+  (*TODO: animateWith... typing problem... duplicate code?*)
+
 end
 
 
@@ -60,6 +66,18 @@ class type element = object
   method translate: int -> int -> unit Js.meth
   method scale: int -> int -> int -> int -> unit Js.meth
 
+  method animateAlong: path -> int -> unit Js.meth
+  method animateAlong_rotate: path -> int -> bool Js.t -> unit Js.meth
+  method animateAlong_callback: path -> int -> (unit -> unit) Js.callback -> unit Js.meth
+  method animateAlong_rotatecallback: path -> int -> bool Js.t -> (unit -> unit) Js.callback -> unit Js.meth
+
+  method animateAlongBack: path -> int -> unit Js.meth
+  method animateAlongBack_rotate: path -> int -> bool Js.t -> unit Js.meth
+  method animateAlongBack_callback: path -> int -> (unit -> unit) Js.callback -> unit Js.meth
+  method animateAlongBack_rotatecallback: path -> int -> bool Js.t -> (unit -> unit) Js.callback -> unit Js.meth
+
+  method onAnimation: (unit -> unit) Js.callback -> unit Js.meth
+
   method getBBox: unit -> bbox Js.t Js.meth
 
   method toFront: unit -> unit Js.meth
@@ -69,6 +87,8 @@ class type element = object
   method insertAfter: element Js.t -> unit Js.meth
 
   method clone: unit -> element Js.t Js.meth
+
+  method drag: (unit -> unit) Js.callback -> (int -> int -> unit) Js.callback -> (unit -> unit) Js.callback -> unit Js.meth
 
 end
 
@@ -128,13 +148,18 @@ end
 
 and paper = object
 
-  method circle: int -> int -> int -> circle Js.t Js.meth
-  method rect: int -> int -> int -> int -> rect Js.t Js.meth
+  method circle:       int -> int -> int -> circle Js.t Js.meth
+
+  method ellipse:      int -> int -> int -> int -> ellipse Js.t Js.meth
+
+  method rect:         int -> int -> int -> int        -> rect Js.t Js.meth
   method rect_rounded: int -> int -> int -> int -> int -> rect Js.t Js.meth
-  method ellipse: int -> int -> int -> int -> ellipse Js.t Js.meth
-  method image: Js.js_string Js.t -> int -> int -> int -> int -> image Js.t Js.meth
-  method text: int -> int -> Js.js_string Js.t -> text Js.t Js.meth
-  method path: Js.js_string Js.t -> path Js.t Js.meth
+
+  method image:        Js.js_string Js.t -> int -> int -> int -> int -> image Js.t Js.meth
+
+  method text:         int -> int -> Js.js_string Js.t -> text Js.t Js.meth
+
+  method path:         Js.js_string Js.t -> path Js.t Js.meth
 
   method set: unit -> set Js.t Js.meth
 
@@ -142,7 +167,16 @@ and paper = object
 
   method setSize: int -> int -> unit Js.meth
 
-  (*TODO: Raphael functions (getRGB, angle, etc.) *)
+  method getRGB: Js.js_string -> Svg.paint Js.t Js.meth
+
+  method angle_hz: int -> int -> int -> int -> int Js.meth
+  method angle:    int -> int -> int -> int -> int -> int -> int Js.meth
+
+  method rad: int -> int Js.meth
+  method deg: int -> int Js.meth
+
+  method snapTo_multiple: int -> int -> int Js.meth
+  method snapTo: int Js.js_array Js.t -> int -> int Js.meth
 
   method getFont: Js.js_string Js.t -> Svg.font Js.t Js.meth
   method getFont_weighted: Js.js_string Js.t -> int -> Svg.font Js.t Js.meth
