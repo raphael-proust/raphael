@@ -37,8 +37,10 @@ end
 (* Attributes *)
 class type ['attr] with_attr = object
   method attr: 'attr Js.t Js.readonly_prop
-  method animate: 'attr Js.t -> int -> Js.js_string Js.t -> unit Js.meth
-  method animate_callback: 'attr Js.t -> int -> Js.js_string Js.t -> unit Js.callback -> unit Js.meth
+  method animate: 'attr Js.t -> int -> unit Js.meth
+  method animate_easing: 'attr Js.t -> int -> Js.js_string Js.t -> unit Js.meth
+  method animate_callback: 'attr Js.t -> int -> (unit -> unit) Js.callback -> unit Js.meth
+  method animate_callbackeasing: 'attr Js.t -> int -> Js.js_string Js.t -> (unit -> unit) Js.callback -> unit Js.meth
 end
 
 

@@ -74,3 +74,47 @@ let _ =
         p##image(url, 3, 3, 100, 127)
     )
 
+let _ =
+  test "animate"
+    (fun p ->
+      let e = p##ellipse(50, 50, 40, 10) in
+      let ea = e##attr in
+      let rec anim_e () =
+        ea##rx <- 10; ea##ry <- 40;
+        e##animate(ea, 2000);
+        Lwt_js.sleep 3. >>= fun () ->
+        ea##rx <- 40; ea##ry <- 10;
+        e##animate(ea, 2000);
+        Lwt_js.sleep 3. >>= fun () ->
+        anim_e ()
+      in
+      let r = p##rect_rounded(90, 40, 80, 20, 5) in
+      let ra = r##attr in
+      let rec anim_r () =
+        Lwt_js.sleep 1. >>= fun () ->
+        ra##width <- 20; ra##height <- 80; ra##x <- 120; ra##y <- 10;
+        r##animate_easing(ra, 2000, Js.string "bounce");
+        Lwt_js.sleep 3. >>= fun () ->
+        ra##width <- 80; ra##height <- 20; ra##x <- 90; ra##y <- 40;
+        r##animate_easing(ra, 2000, Js.string "elastic");
+        Lwt_js.sleep 1. >>= fun () ->
+        anim_r ()
+      in
+      let c = p##circle(170, 40, 40) in
+      let ca = c##attr in
+      let rec anim_c () =
+        let wt, wk = Lwt.task () in
+        ca##r <- 10;
+        c##animate_callback(ca, 1550, Js.wrap_callback (fun () -> Lwt.wakeup wk ()));
+        wt >>= fun () ->
+        let wt, wk = Lwt.task () in
+        ca##r <- 40;
+        c##animate_callback(ca, 1550, Js.wrap_callback (fun () -> Lwt.wakeup wk ()));
+        wt >>= fun () ->
+        anim_c ()
+      in
+      anim_e ();
+      anim_r ();
+      anim_c ()
+
+    )

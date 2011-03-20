@@ -58,8 +58,6 @@ end
 class type dimensioned_attr = object
   method width: int prop
   method height: int prop
-  method rx: int prop
-  method ry: int prop
 end
 
 class type positioned_attr = object
@@ -85,6 +83,8 @@ class type ellipse_attr = object
   inherit shape_attr
   inherit centered_attr
 
+  method rx: int prop
+  method ry: int prop
 end
 
 class type rect_attr = object
@@ -92,7 +92,6 @@ class type rect_attr = object
   inherit shape_attr
   inherit dimensioned_attr
   inherit positioned_attr
-
 end
 
 class type image_attr = object
