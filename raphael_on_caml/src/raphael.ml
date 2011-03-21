@@ -34,96 +34,132 @@ class type bbox = object
 
 end
 
-(* Attributes *)
-class type ['attr] with_attr = object
-  method attr: 'attr Js.t Js.readonly_prop
 
-  method animate: 'attr Js.t -> int -> unit Js.meth
-  method animate_easing: 'attr Js.t -> int -> Js.js_string Js.t -> unit Js.meth
-  method animate_callback: 'attr Js.t -> int -> (unit -> unit) Js.callback -> unit Js.meth
-  method animate_easingcallback: 'attr Js.t -> int -> Js.js_string Js.t -> (unit -> unit) Js.callback -> unit Js.meth
+class type ['attr] element = object ('self)
 
-  method stop: unit -> unit Js.meth
-
-  (*TODO: animateWith... typing problem... duplicate code?*)
-
-end
-
-
-class type element = object
-
+  (* The associated DOM node (if necessary) *)
   method node: Dom.node Js.t Js.readonly_prop
 
-  method paper: paper Js.t Js.readonly_prop
-
+  (* To display or not to display... *)
   method remove: unit -> unit Js.meth
   method hide: unit -> unit Js.meth
   method show: unit -> unit Js.meth
+  method toFront: unit -> unit Js.meth
+  method toBack:  unit -> unit Js.meth
+  method insertBefore: 'a element Js.t -> unit Js.meth
+  method insertAfter:  'a element Js.t -> unit Js.meth
 
-  method rotate: int -> unit Js.meth
+
+  (* Basic geometric transformation *)
+  method rotate:          int -> unit Js.meth
   method rotate_absolute: int -> bool -> unit Js.meth
-  method rotate_center: int -> int -> int -> unit Js.meth
-  method translate: int -> int -> unit Js.meth
-  method scale: int -> int -> int -> int -> unit Js.meth
+  method rotate_center:   int -> int -> int -> unit Js.meth
+  method translate:       int -> int -> unit Js.meth
+  method scale:           int -> int -> int -> int -> unit Js.meth
 
-  method animateAlong: path -> int -> unit Js.meth
-  method animateAlong_rotate: path -> int -> bool Js.t -> unit Js.meth
-  method animateAlong_callback: path -> int -> (unit -> unit) Js.callback -> unit Js.meth
-  method animateAlong_rotatecallback: path -> int -> bool Js.t -> (unit -> unit) Js.callback -> unit Js.meth
+  (* The attributes of the object *)
+  method attr: 'attr Js.t Js.readonly_prop
 
-  method animateAlongBack: path -> int -> unit Js.meth
-  method animateAlongBack_rotate: path -> int -> bool Js.t -> unit Js.meth
-  method animateAlongBack_callback: path -> int -> (unit -> unit) Js.callback -> unit Js.meth
-  method animateAlongBack_rotatecallback: path -> int -> bool Js.t -> (unit -> unit) Js.callback -> unit Js.meth
+  (* Animation *)
+  method animate:                'attr Js.t -> int -> unit Js.meth
+  method animate_easing:         'attr Js.t -> int -> Js.js_string Js.t -> unit Js.meth
+  method animate_callback:       'attr Js.t -> int -> (unit -> unit) Js.callback -> unit Js.meth
+  method animate_easingcallback: 'attr Js.t -> int -> Js.js_string Js.t -> (unit -> unit) Js.callback -> unit Js.meth
 
+  (* Synchronized animation *)
+  method animateWith:                'a element -> 'attr Js.t -> int -> unit Js.meth
+  method animateWith_easing:         'a element -> 'attr Js.t -> int -> Js.js_string Js.t -> unit Js.meth
+  method animateWith_callback:       'a element -> 'attr Js.t -> int -> (unit -> unit) Js.callback -> unit Js.meth
+  method animateWith_easingcallback: 'a element -> 'attr Js.t -> int -> Js.js_string Js.t -> (unit -> unit) Js.callback -> unit Js.meth
+
+(*
+ *)
+
+(*
+ *)
+
+  (* Stop the animation *)
+  method stop: unit -> unit Js.meth
+
+  (* Event handler called at each step of the animation *)
   method onAnimation: (unit -> unit) Js.callback -> unit Js.meth
 
+  (* The box the elements fits in *)
   method getBBox: unit -> bbox Js.t Js.meth
 
-  method toFront: unit -> unit Js.meth
-  method toBack: unit -> unit Js.meth
+  (* Gimme moar! *)
+  method clone: unit -> 'self Js.t Js.meth
 
-  method insertBefore: element Js.t -> unit Js.meth
-  method insertAfter: element Js.t -> unit Js.meth
-
-  method clone: unit -> element Js.t Js.meth
-
+  (* Three stage dragging *)
   method drag: (unit -> unit) Js.callback -> (int -> int -> unit) Js.callback -> (unit -> unit) Js.callback -> unit Js.meth
+
+  (* Wrappers for other event handlers *)
+  method click  : (Dom_html.mouseEvent -> unit) Js.callback -> unit
+  method unclick: (Dom_html.mouseEvent -> unit) Js.callback -> unit
+  method dblclick  : (Dom_html.mouseEvent -> unit) Js.callback -> unit
+  method undblclick: (Dom_html.mouseEvent -> unit) Js.callback -> unit
+  method mousedown  : (Dom_html.mouseEvent -> unit) Js.callback -> unit
+  method unmousedown: (Dom_html.mouseEvent -> unit) Js.callback -> unit
+  method mousemove  : (Dom_html.mouseEvent -> unit) Js.callback -> unit
+  method unmousemove: (Dom_html.mouseEvent -> unit) Js.callback -> unit
+  method mouseout  : (Dom_html.mouseEvent -> unit) Js.callback -> unit
+  method unmouseout: (Dom_html.mouseEvent -> unit) Js.callback -> unit
+  method mouseover  : (Dom_html.mouseEvent -> unit) Js.callback -> unit
+  method unmouseover: (Dom_html.mouseEvent -> unit) Js.callback -> unit
+  method mouseup  : (Dom_html.mouseEvent -> unit) Js.callback -> unit
+  method unmouseup: (Dom_html.mouseEvent -> unit) Js.callback -> unit
+  method hover  : (Dom_html.mouseEvent -> unit) Js.callback -> unit
+  method unhover: (Dom_html.mouseEvent -> unit) Js.callback -> unit
+
+end
+
+class type rechack = object
+
+  method paper: paper Js.t Js.readonly_prop
+
+  (* Animation along a path *)
+  method animateAlong:                path -> int -> unit Js.meth
+  method animateAlong_rotate:         path -> int -> bool Js.t -> unit Js.meth
+  method animateAlong_callback:       path -> int -> (unit -> unit) Js.callback -> unit Js.meth
+  method animateAlong_rotatecallback: path -> int -> bool Js.t -> (unit -> unit) Js.callback -> unit Js.meth
+
+  (* Animation along a path reversed *)
+  method animateAlongBack:                path -> int -> unit Js.meth
+  method animateAlongBack_rotate:         path -> int -> bool Js.t -> unit Js.meth
+  method animateAlongBack_callback:       path -> int -> (unit -> unit) Js.callback -> unit Js.meth
+  method animateAlongBack_rotatecallback: path -> int -> bool Js.t -> (unit -> unit) Js.callback -> unit Js.meth
 
 end
 
 and circle = object
-  inherit element
-  inherit [Svg.circle_attr] with_attr
+  inherit [Svg.circle_attr] element
+  inherit rechack
 end
-
 
 and rect = object
-  inherit element
-  inherit [Svg.rect_attr] with_attr
+  inherit [Svg.rect_attr] element
+  inherit rechack
 end
-
 
 and ellipse = object
-  inherit element
-  inherit [Svg.ellipse_attr] with_attr
+  inherit [Svg.ellipse_attr] element
+  inherit rechack
 end
 
-
 and image = object
-  inherit element
-  inherit [Svg.image_attr] with_attr
+  inherit [Svg.image_attr] element
+  inherit rechack
 end
 
 and text = object
-  inherit element
-  inherit [Svg.text_attr] with_attr
+  inherit [Svg.text_attr] element
+  inherit rechack
 end
 
 and path = object
 
-  inherit element
-  inherit [Svg.path_attr] with_attr
+  inherit [Svg.path_attr] element
+  inherit rechack
 
   method getTotalLength: unit -> int Js.meth
   method getPointAtLength: int -> point Js.t Js.meth
@@ -133,15 +169,16 @@ end
 
 and set = object
 
-  inherit element
+  inherit [Svg.set_attr] element
+  inherit rechack
 
-  method push:   element Js.t -> unit Js.meth
-  method push_2: element Js.t-> element Js.t-> unit Js.meth
-  method push_3: element Js.t-> element Js.t-> element Js.t-> unit Js.meth
-  method push_4: element Js.t-> element Js.t-> element Js.t-> element Js.t-> unit Js.meth
-  method push_5: element Js.t-> element Js.t-> element Js.t-> element Js.t-> element Js.t-> unit Js.meth
+  method push:   'a element Js.t -> unit Js.meth
+  method push_2: 'a element Js.t-> 'a element Js.t-> unit Js.meth
+  method push_3: 'a element Js.t-> 'a element Js.t-> 'a element Js.t-> unit Js.meth
+  method push_4: 'a element Js.t-> 'a element Js.t-> 'a element Js.t-> 'a element Js.t-> unit Js.meth
+  method push_5: 'a element Js.t-> 'a element Js.t-> 'a element Js.t-> 'a element Js.t-> 'a element Js.t-> unit Js.meth
 
-  method items: element Js.t Js.js_array Js.t Js.readonly_prop
+  method items: 'a element Js.t Js.js_array Js.t Js.readonly_prop
   method length: int Js.readonly_prop
 
 end
@@ -186,5 +223,20 @@ and paper = object
   method print: int -> int -> Js.js_string Js.t -> Svg.font Js.t -> int -> set Js.t Js.meth
 
 end
+
+let element_of_circle : circle Js.t -> Svg.circle_attr element Js.t = Js.Unsafe.coerce
+let circle_of_element : Svg.circle_attr element Js.t ->  circle Js.t = Js.Unsafe.coerce
+let element_of_ellipse : ellipse Js.t -> Svg.ellipse_attr element Js.t = Js.Unsafe.coerce
+let ellipse_of_element : Svg.ellipse_attr element Js.t ->  ellipse Js.t = Js.Unsafe.coerce
+let element_of_rect : rect Js.t -> Svg.rect_attr element Js.t = Js.Unsafe.coerce
+let rect_of_element : Svg.rect_attr element Js.t ->  rect Js.t = Js.Unsafe.coerce
+let element_of_image : image Js.t -> Svg.image_attr element Js.t = Js.Unsafe.coerce
+let image_of_element : Svg.image_attr element Js.t ->  image Js.t = Js.Unsafe.coerce
+let element_of_text : text Js.t -> Svg.text_attr element Js.t = Js.Unsafe.coerce
+let text_of_element : Svg.text_attr element Js.t ->  text Js.t = Js.Unsafe.coerce
+let element_of_path : path Js.t -> Svg.path_attr element Js.t = Js.Unsafe.coerce
+let path_of_element : Svg.path_attr element Js.t ->  path Js.t = Js.Unsafe.coerce
+let element_of_set : set Js.t -> Svg.set_attr element Js.t = Js.Unsafe.coerce
+let set_of_element : Svg.set_attr element Js.t -> set Js.t = Js.Unsafe.coerce
 
 external raphael: Dom.node Js.t -> int -> int -> paper Js.t = "Raphael"
