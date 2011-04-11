@@ -4,7 +4,7 @@ include ../Makefile.common
 ####
 
 
-MLS=test.ml
+MLS=test.ml drawing.ml
 BYTES=$(MLS:ml=byte)
 TARGETS=$(MLS:ml=js)
 
