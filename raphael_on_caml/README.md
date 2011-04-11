@@ -13,6 +13,8 @@ Information will be made available as development progresses. Basically what you
 need to do is build the library, use the built parts in your client code and
 ship both raphael.js and your compiled client code into a web page.
 
+It is planned to use OASIS for the building process.
+
 ##Licence
 
 js_of_ocaml bindings for the raphael library
