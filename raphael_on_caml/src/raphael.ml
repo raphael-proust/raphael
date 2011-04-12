@@ -79,11 +79,11 @@ class type ['attr] element = object ('self)
   method node: Dom.node Js.t Js.readonly_prop
 
   (* To display or not to display... *)
-  method remove: unit -> unit Js.meth
-  method hide: unit -> unit Js.meth
-  method show: unit -> unit Js.meth
-  method toFront: unit -> unit Js.meth
-  method toBack:  unit -> unit Js.meth
+  method remove:  unit Js.meth
+  method hide:  unit Js.meth
+  method show:  unit Js.meth
+  method toFront:  unit Js.meth
+  method toBack:   unit Js.meth
   method insertBefore: 'a element Js.t -> unit Js.meth
   method insertAfter:  'a element Js.t -> unit Js.meth
 
@@ -111,16 +111,16 @@ class type ['attr] element = object ('self)
   method animateWith_easingcallback: 'a element -> 'attr Js.t -> int -> Js.js_string Js.t -> (unit -> unit) Js.callback -> unit Js.meth
 
   (* Stop the animation *)
-  method stop: unit -> unit Js.meth
+  method stop:  unit Js.meth
 
   (* Event handler called at each step of the animation *)
   method onAnimation: (unit -> unit) Js.callback -> unit Js.meth
 
   (* The box the elements fits in *)
-  method getBBox: unit -> bbox Js.t Js.meth
+  method getBBox:  bbox Js.t Js.meth
 
   (* Gimme moar! *)
-  method clone: unit -> 'self Js.t Js.meth
+  method clone:  'self Js.t Js.meth
 
   (* Three stage dragging   /!\ argument order: move, start, end  *)
   method drag:
@@ -184,7 +184,7 @@ and path = object
   inherit [Svg.path_attr] element
   inherit rechack
 
-  method getTotalLength: unit -> int Js.meth
+  method getTotalLength:  int Js.meth
   method getPointAtLength: int -> point Js.t Js.meth
   method getSubpath: int -> int -> path Js.t Js.meth
 
@@ -221,9 +221,9 @@ and paper = object
 
   method path:         Js.js_string Js.t -> path Js.t Js.meth
 
-  method set: unit -> set Js.t Js.meth
+  method set:  set Js.t Js.meth
 
-  method clear: unit -> unit Js.meth
+  method clear:  unit Js.meth
 
   method setSize: int -> int -> unit Js.meth
 
@@ -247,7 +247,7 @@ and paper = object
 
 end
 
-let element_of_circle : circle Js.t -> Svg.circle_attr element Js.t = Js.Unsafe.coerce
+let element_of_circle : circle Js.t -> Svg.circle_attr element Js.t = fun x -> (x :> Svg.circle_attr element Js.t)
 let circle_of_element : Svg.circle_attr element Js.t ->  circle Js.t = Js.Unsafe.coerce
 let element_of_ellipse : ellipse Js.t -> Svg.ellipse_attr element Js.t = Js.Unsafe.coerce
 let ellipse_of_element : Svg.ellipse_attr element Js.t ->  ellipse Js.t = Js.Unsafe.coerce
@@ -262,4 +262,4 @@ let path_of_element : Svg.path_attr element Js.t ->  path Js.t = Js.Unsafe.coerc
 let element_of_set : set Js.t -> Svg.set_attr element Js.t = Js.Unsafe.coerce
 let set_of_element : Svg.set_attr element Js.t -> set Js.t = Js.Unsafe.coerce
 
-external raphael: Dom.node Js.t -> int -> int -> paper Js.t = "Raphael"
+let raphael n w h = Js.Unsafe.fun_call (Js.Unsafe.variable "Raphael") [|Js.Unsafe.inject n; Js.Unsafe.inject w; Js.Unsafe.inject h|]

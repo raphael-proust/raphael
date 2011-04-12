@@ -54,9 +54,9 @@ let _ =
        let e = p##ellipse(140, 30, 30, 20) in
 
        let rec flickr () =
-         r##hide(()); c##show(()); rr##hide(()); e##show(());
+         r##hide(); c##show(); rr##hide(); e##show();
          Lwt_js.sleep 1. >>= fun () ->
-         r##show(()); c##hide(()); rr##show(()); e##hide(());
+         r##show(); c##hide(); rr##show(); e##hide();
          Lwt_js.sleep 1. >>= fun () ->
          flickr ()
        in

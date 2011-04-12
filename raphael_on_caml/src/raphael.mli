@@ -92,15 +92,15 @@ class type ['a] element =
     method attr : 'a Js.t Js.readonly_prop
     method click :
       (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
-    method clone : unit -> 'b Js.t Js.meth
+    method clone : 'b Js.t Js.meth
     method dblclick :
       (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
     method drag :
       (int -> int -> unit) Js.callback ->
       (Dom_html.mouseEvent Js.t -> unit) Js.callback ->
       (unit -> unit) Js.callback -> unit Js.meth
-    method getBBox : unit -> bbox Js.t Js.meth
-    method hide : unit -> unit Js.meth
+    method getBBox : bbox Js.t Js.meth
+    method hide : unit Js.meth
     method hover :
       (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
     method insertAfter : 'a element Js.t -> unit Js.meth
@@ -117,15 +117,15 @@ class type ['a] element =
       (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
     method node : Dom.node Js.t Js.readonly_prop
     method onAnimation : (unit -> unit) Js.callback -> unit Js.meth
-    method remove : unit -> unit Js.meth
+    method remove : unit Js.meth
     method rotate : int -> unit Js.meth
     method rotate_absolute : int -> bool -> unit Js.meth
     method rotate_center : int -> int -> int -> unit Js.meth
     method scale : int -> int -> int -> int -> unit Js.meth
-    method show : unit -> unit Js.meth
-    method stop : unit -> unit Js.meth
-    method toBack : unit -> unit Js.meth
-    method toFront : unit -> unit Js.meth
+    method show : unit Js.meth
+    method stop : unit Js.meth
+    method toBack : unit Js.meth
+    method toFront : unit Js.meth
     method translate : int -> int -> unit Js.meth
     method unclick :
       (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
@@ -203,15 +203,15 @@ and circle =
     method attr : Svg.circle_attr Js.t Js.readonly_prop
     method click :
       (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
-    method clone : unit -> 'a Js.t Js.meth
+    method clone : 'a Js.t Js.meth
     method dblclick :
       (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
     method drag :
       (int -> int -> unit) Js.callback ->
       (Dom_html.mouseEvent Js.t -> unit) Js.callback ->
       (unit -> unit) Js.callback -> unit Js.meth
-    method getBBox : unit -> bbox Js.t Js.meth
-    method hide : unit -> unit Js.meth
+    method getBBox : bbox Js.t Js.meth
+    method hide : unit Js.meth
     method hover :
       (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
     method insertAfter : Svg.circle_attr element Js.t -> unit Js.meth
@@ -229,15 +229,15 @@ and circle =
     method node : Dom.node Js.t Js.readonly_prop
     method onAnimation : (unit -> unit) Js.callback -> unit Js.meth
     method paper : paper Js.t Js.readonly_prop
-    method remove : unit -> unit Js.meth
+    method remove : unit Js.meth
     method rotate : int -> unit Js.meth
     method rotate_absolute : int -> bool -> unit Js.meth
     method rotate_center : int -> int -> int -> unit Js.meth
     method scale : int -> int -> int -> int -> unit Js.meth
-    method show : unit -> unit Js.meth
-    method stop : unit -> unit Js.meth
-    method toBack : unit -> unit Js.meth
-    method toFront : unit -> unit Js.meth
+    method show : unit Js.meth
+    method stop : unit Js.meth
+    method toBack : unit Js.meth
+    method toFront : unit Js.meth
     method translate : int -> int -> unit Js.meth
     method unclick :
       (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
@@ -297,15 +297,15 @@ and rect =
     method attr : Svg.rect_attr Js.t Js.readonly_prop
     method click :
       (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
-    method clone : unit -> 'a Js.t Js.meth
+    method clone :  'a Js.t Js.meth
     method dblclick :
       (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
     method drag :
       (int -> int -> unit) Js.callback ->
       (Dom_html.mouseEvent Js.t -> unit) Js.callback ->
       (unit -> unit) Js.callback -> unit Js.meth
-    method getBBox : unit -> bbox Js.t Js.meth
-    method hide : unit -> unit Js.meth
+    method getBBox :  bbox Js.t Js.meth
+    method hide :  unit Js.meth
     method hover :
       (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
     method insertAfter : Svg.rect_attr element Js.t -> unit Js.meth
@@ -323,15 +323,15 @@ and rect =
     method node : Dom.node Js.t Js.readonly_prop
     method onAnimation : (unit -> unit) Js.callback -> unit Js.meth
     method paper : paper Js.t Js.readonly_prop
-    method remove : unit -> unit Js.meth
+    method remove :  unit Js.meth
     method rotate : int -> unit Js.meth
     method rotate_absolute : int -> bool -> unit Js.meth
     method rotate_center : int -> int -> int -> unit Js.meth
     method scale : int -> int -> int -> int -> unit Js.meth
-    method show : unit -> unit Js.meth
-    method stop : unit -> unit Js.meth
-    method toBack : unit -> unit Js.meth
-    method toFront : unit -> unit Js.meth
+    method show :  unit Js.meth
+    method stop :  unit Js.meth
+    method toBack :  unit Js.meth
+    method toFront :  unit Js.meth
     method translate : int -> int -> unit Js.meth
     method unclick :
       (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
@@ -394,15 +394,15 @@ and ellipse =
     method attr : Svg.ellipse_attr Js.t Js.readonly_prop
     method click :
       (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
-    method clone : unit -> 'a Js.t Js.meth
+    method clone :  'a Js.t Js.meth
     method dblclick :
       (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
     method drag :
       (int -> int -> unit) Js.callback ->
       (Dom_html.mouseEvent Js.t -> unit) Js.callback ->
       (unit -> unit) Js.callback -> unit Js.meth
-    method getBBox : unit -> bbox Js.t Js.meth
-    method hide : unit -> unit Js.meth
+    method getBBox :  bbox Js.t Js.meth
+    method hide :  unit Js.meth
     method hover :
       (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
     method insertAfter : Svg.ellipse_attr element Js.t -> unit Js.meth
@@ -420,15 +420,15 @@ and ellipse =
     method node : Dom.node Js.t Js.readonly_prop
     method onAnimation : (unit -> unit) Js.callback -> unit Js.meth
     method paper : paper Js.t Js.readonly_prop
-    method remove : unit -> unit Js.meth
+    method remove :  unit Js.meth
     method rotate : int -> unit Js.meth
     method rotate_absolute : int -> bool -> unit Js.meth
     method rotate_center : int -> int -> int -> unit Js.meth
     method scale : int -> int -> int -> int -> unit Js.meth
-    method show : unit -> unit Js.meth
-    method stop : unit -> unit Js.meth
-    method toBack : unit -> unit Js.meth
-    method toFront : unit -> unit Js.meth
+    method show :  unit Js.meth
+    method stop :  unit Js.meth
+    method toBack :  unit Js.meth
+    method toFront :  unit Js.meth
     method translate : int -> int -> unit Js.meth
     method unclick :
       (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
@@ -490,15 +490,15 @@ and image =
     method attr : Svg.image_attr Js.t Js.readonly_prop
     method click :
       (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
-    method clone : unit -> 'a Js.t Js.meth
+    method clone :  'a Js.t Js.meth
     method dblclick :
       (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
     method drag :
       (int -> int -> unit) Js.callback ->
       (Dom_html.mouseEvent Js.t -> unit) Js.callback ->
       (unit -> unit) Js.callback -> unit Js.meth
-    method getBBox : unit -> bbox Js.t Js.meth
-    method hide : unit -> unit Js.meth
+    method getBBox :  bbox Js.t Js.meth
+    method hide :  unit Js.meth
     method hover :
       (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
     method insertAfter : Svg.image_attr element Js.t -> unit Js.meth
@@ -516,15 +516,15 @@ and image =
     method node : Dom.node Js.t Js.readonly_prop
     method onAnimation : (unit -> unit) Js.callback -> unit Js.meth
     method paper : paper Js.t Js.readonly_prop
-    method remove : unit -> unit Js.meth
+    method remove :  unit Js.meth
     method rotate : int -> unit Js.meth
     method rotate_absolute : int -> bool -> unit Js.meth
     method rotate_center : int -> int -> int -> unit Js.meth
     method scale : int -> int -> int -> int -> unit Js.meth
-    method show : unit -> unit Js.meth
-    method stop : unit -> unit Js.meth
-    method toBack : unit -> unit Js.meth
-    method toFront : unit -> unit Js.meth
+    method show :  unit Js.meth
+    method stop :  unit Js.meth
+    method toBack :  unit Js.meth
+    method toFront :  unit Js.meth
     method translate : int -> int -> unit Js.meth
     method unclick :
       (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
@@ -584,15 +584,15 @@ and text =
     method attr : Svg.text_attr Js.t Js.readonly_prop
     method click :
       (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
-    method clone : unit -> 'a Js.t Js.meth
+    method clone :  'a Js.t Js.meth
     method dblclick :
       (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
     method drag :
       (int -> int -> unit) Js.callback ->
       (Dom_html.mouseEvent Js.t -> unit) Js.callback ->
       (unit -> unit) Js.callback -> unit Js.meth
-    method getBBox : unit -> bbox Js.t Js.meth
-    method hide : unit -> unit Js.meth
+    method getBBox :  bbox Js.t Js.meth
+    method hide :  unit Js.meth
     method hover :
       (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
     method insertAfter : Svg.text_attr element Js.t -> unit Js.meth
@@ -610,15 +610,15 @@ and text =
     method node : Dom.node Js.t Js.readonly_prop
     method onAnimation : (unit -> unit) Js.callback -> unit Js.meth
     method paper : paper Js.t Js.readonly_prop
-    method remove : unit -> unit Js.meth
+    method remove :  unit Js.meth
     method rotate : int -> unit Js.meth
     method rotate_absolute : int -> bool -> unit Js.meth
     method rotate_center : int -> int -> int -> unit Js.meth
     method scale : int -> int -> int -> int -> unit Js.meth
-    method show : unit -> unit Js.meth
-    method stop : unit -> unit Js.meth
-    method toBack : unit -> unit Js.meth
-    method toFront : unit -> unit Js.meth
+    method show :  unit Js.meth
+    method stop :  unit Js.meth
+    method toBack :  unit Js.meth
+    method toFront :  unit Js.meth
     method translate : int -> int -> unit Js.meth
     method unclick :
       (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
@@ -678,18 +678,18 @@ and path =
     method attr : Svg.path_attr Js.t Js.readonly_prop
     method click :
       (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
-    method clone : unit -> 'a Js.t Js.meth
+    method clone :  'a Js.t Js.meth
     method dblclick :
       (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
     method drag :
       (int -> int -> unit) Js.callback ->
       (Dom_html.mouseEvent Js.t -> unit) Js.callback ->
       (unit -> unit) Js.callback -> unit Js.meth
-    method getBBox : unit -> bbox Js.t Js.meth
+    method getBBox :  bbox Js.t Js.meth
     method getPointAtLength : int -> point Js.t Js.meth
     method getSubpath : int -> int -> path Js.t Js.meth
-    method getTotalLength : unit -> int Js.meth
-    method hide : unit -> unit Js.meth
+    method getTotalLength :  int Js.meth
+    method hide :  unit Js.meth
     method hover :
       (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
     method insertAfter : Svg.path_attr element Js.t -> unit Js.meth
@@ -707,15 +707,15 @@ and path =
     method node : Dom.node Js.t Js.readonly_prop
     method onAnimation : (unit -> unit) Js.callback -> unit Js.meth
     method paper : paper Js.t Js.readonly_prop
-    method remove : unit -> unit Js.meth
+    method remove :  unit Js.meth
     method rotate : int -> unit Js.meth
     method rotate_absolute : int -> bool -> unit Js.meth
     method rotate_center : int -> int -> int -> unit Js.meth
     method scale : int -> int -> int -> int -> unit Js.meth
-    method show : unit -> unit Js.meth
-    method stop : unit -> unit Js.meth
-    method toBack : unit -> unit Js.meth
-    method toFront : unit -> unit Js.meth
+    method show :  unit Js.meth
+    method stop :  unit Js.meth
+    method toBack :  unit Js.meth
+    method toFront :  unit Js.meth
     method translate : int -> int -> unit Js.meth
     method unclick :
       (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
@@ -775,15 +775,15 @@ and set =
     method attr : Svg.set_attr Js.t Js.readonly_prop
     method click :
       (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
-    method clone : unit -> 'a Js.t Js.meth
+    method clone :  'a Js.t Js.meth
     method dblclick :
       (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
     method drag :
       (int -> int -> unit) Js.callback ->
       (Dom_html.mouseEvent Js.t -> unit) Js.callback ->
       (unit -> unit) Js.callback -> unit Js.meth
-    method getBBox : unit -> bbox Js.t Js.meth
-    method hide : unit -> unit Js.meth
+    method getBBox :  bbox Js.t Js.meth
+    method hide :  unit Js.meth
     method hover :
       (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
     method insertAfter : Svg.set_attr element Js.t -> unit Js.meth
@@ -814,15 +814,15 @@ and set =
       'g element Js.t ->
       'g element Js.t ->
       'g element Js.t -> 'g element Js.t -> 'g element Js.t -> unit Js.meth
-    method remove : unit -> unit Js.meth
+    method remove :  unit Js.meth
     method rotate : int -> unit Js.meth
     method rotate_absolute : int -> bool -> unit Js.meth
     method rotate_center : int -> int -> int -> unit Js.meth
     method scale : int -> int -> int -> int -> unit Js.meth
-    method show : unit -> unit Js.meth
-    method stop : unit -> unit Js.meth
-    method toBack : unit -> unit Js.meth
-    method toFront : unit -> unit Js.meth
+    method show :  unit Js.meth
+    method stop :  unit Js.meth
+    method toBack :  unit Js.meth
+    method toFront :  unit Js.meth
     method translate : int -> int -> unit Js.meth
     method unclick :
       (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
@@ -850,7 +850,7 @@ and paper =
     method angle : int -> int -> int -> int -> int -> int -> int Js.meth
     method angle_hz : int -> int -> int -> int -> int Js.meth
     method circle : int -> int -> int -> circle Js.t Js.meth
-    method clear : unit -> unit Js.meth
+    method clear :  unit Js.meth
     method deg : int -> int Js.meth
     method ellipse : int -> int -> int -> int -> ellipse Js.t Js.meth
     method getFont : Js.js_string Js.t -> Svg.font Js.t Js.meth
@@ -872,7 +872,7 @@ and paper =
     method rect : int -> int -> int -> int -> rect Js.t Js.meth
     method rect_rounded :
       int -> int -> int -> int -> int -> rect Js.t Js.meth
-    method set : unit -> set Js.t Js.meth
+    method set :  set Js.t Js.meth
     method setSize : int -> int -> unit Js.meth
     method snapTo : int Js.js_array Js.t -> int -> int Js.meth
     method snapTo_multiple : int -> int -> int Js.meth
@@ -892,4 +892,4 @@ val element_of_path : path Js.t -> Svg.path_attr element Js.t
 val path_of_element : Svg.path_attr element Js.t -> path Js.t
 val element_of_set : set Js.t -> Svg.set_attr element Js.t
 val set_of_element : Svg.set_attr element Js.t -> set Js.t
-external raphael : Dom.node Js.t -> int -> int -> paper Js.t = "Raphael"
+val raphael : Dom.node Js.t -> int -> int -> paper Js.t

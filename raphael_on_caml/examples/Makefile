@@ -4,7 +4,7 @@ include ../Makefile.common
 ####
 
 
-MLS=test.ml
+MLS=drawing.ml
 BYTES=$(MLS:ml=byte)
 TARGETS=$(MLS:ml=js)
 LIB=../src/raphael.cma
