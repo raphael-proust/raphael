@@ -155,33 +155,33 @@ class type rechack = object
 end
 
 and circle = object
-  inherit [Svg.circle_attr] element
+  inherit [Attr.circle_attr] element
   inherit rechack
 end
 
 and rect = object
-  inherit [Svg.rect_attr] element
+  inherit [Attr.rect_attr] element
   inherit rechack
 end
 
 and ellipse = object
-  inherit [Svg.ellipse_attr] element
+  inherit [Attr.ellipse_attr] element
   inherit rechack
 end
 
 and image = object
-  inherit [Svg.image_attr] element
+  inherit [Attr.image_attr] element
   inherit rechack
 end
 
 and text = object
-  inherit [Svg.text_attr] element
+  inherit [Attr.text_attr] element
   inherit rechack
 end
 
 and path = object
 
-  inherit [Svg.path_attr] element
+  inherit [Attr.path_attr] element
   inherit rechack
 
   method getTotalLength:  int Js.meth
@@ -192,7 +192,7 @@ end
 
 and set = object
 
-  inherit [Svg.set_attr] element
+  inherit [Attr.set_attr] element
   inherit rechack
 
   method push:   'a element Js.t -> unit Js.meth
@@ -208,26 +208,25 @@ end
 
 and paper = object
 
-  method circle:       int -> int -> int -> circle Js.t Js.meth
-
-  method ellipse:      int -> int -> int -> int -> ellipse Js.t Js.meth
+  method circle:  int -> int -> int -> circle Js.t Js.meth
+  method ellipse: int -> int -> int -> int -> ellipse Js.t Js.meth
 
   method rect:         int -> int -> int -> int        -> rect Js.t Js.meth
   method rect_rounded: int -> int -> int -> int -> int -> rect Js.t Js.meth
 
-  method image:        Js.js_string Js.t -> int -> int -> int -> int -> image Js.t Js.meth
+  method image: Js.js_string Js.t -> int -> int -> int -> int -> image Js.t Js.meth
 
-  method text:         int -> int -> Js.js_string Js.t -> text Js.t Js.meth
+  method text: int -> int -> Js.js_string Js.t -> text Js.t Js.meth
 
-  method path:         Js.js_string Js.t -> path Js.t Js.meth
+  method path: Js.js_string Js.t -> path Js.t Js.meth
 
-  method set:  set Js.t Js.meth
+  method set: set Js.t Js.meth
 
   method clear:  unit Js.meth
 
   method setSize: int -> int -> unit Js.meth
 
-  method getRGB: Js.js_string Js.t -> Svg.paint Js.t Js.meth
+  method getRGB: Js.js_string Js.t -> Attr.paint Js.t Js.meth
 
   method angle_hz: int -> int -> int -> int -> int Js.meth
   method angle:    int -> int -> int -> int -> int -> int -> int Js.meth
@@ -238,28 +237,29 @@ and paper = object
   method snapTo_multiple: int -> int -> int Js.meth
   method snapTo: int Js.js_array Js.t -> int -> int Js.meth
 
-  method getFont: Js.js_string Js.t -> Svg.font Js.t Js.meth
-  method getFont_weighted: Js.js_string Js.t -> int -> Svg.font Js.t Js.meth
-  method getFont_styled: Js.js_string Js.t -> int -> Js.js_string Js.t -> Svg.font Js.t Js.meth
-  method getFont_stretched: Js.js_string Js.t -> int -> Js.js_string Js.t -> Js.js_string Js.t -> Svg.font Js.t Js.meth
+  method getFont: Js.js_string Js.t -> Attr.font Js.t Js.meth
+  method getFont_weighted: Js.js_string Js.t -> int -> Attr.font Js.t Js.meth
+  method getFont_styled: Js.js_string Js.t -> int -> Js.js_string Js.t
+                         -> Attr.font Js.t Js.meth
+  method getFont_stretched: Js.js_string Js.t -> int -> Js.js_string Js.t
+                            -> Js.js_string Js.t -> Attr.font Js.t Js.meth
 
-  method print: int -> int -> Js.js_string Js.t -> Svg.font Js.t -> int -> set Js.t Js.meth
+  method print: int -> int -> Js.js_string Js.t -> Attr.font Js.t -> int
+                -> set Js.t Js.meth
 
 end
 
-let element_of_circle : circle Js.t -> Svg.circle_attr element Js.t = fun x -> (x :> Svg.circle_attr element Js.t)
-let circle_of_element : Svg.circle_attr element Js.t ->  circle Js.t = Js.Unsafe.coerce
-let element_of_ellipse : ellipse Js.t -> Svg.ellipse_attr element Js.t = Js.Unsafe.coerce
-let ellipse_of_element : Svg.ellipse_attr element Js.t ->  ellipse Js.t = Js.Unsafe.coerce
-let element_of_rect : rect Js.t -> Svg.rect_attr element Js.t = Js.Unsafe.coerce
-let rect_of_element : Svg.rect_attr element Js.t ->  rect Js.t = Js.Unsafe.coerce
-let element_of_image : image Js.t -> Svg.image_attr element Js.t = Js.Unsafe.coerce
-let image_of_element : Svg.image_attr element Js.t ->  image Js.t = Js.Unsafe.coerce
-let element_of_text : text Js.t -> Svg.text_attr element Js.t = Js.Unsafe.coerce
-let text_of_element : Svg.text_attr element Js.t ->  text Js.t = Js.Unsafe.coerce
-let element_of_path : path Js.t -> Svg.path_attr element Js.t = Js.Unsafe.coerce
-let path_of_element : Svg.path_attr element Js.t ->  path Js.t = Js.Unsafe.coerce
-let element_of_set : set Js.t -> Svg.set_attr element Js.t = Js.Unsafe.coerce
-let set_of_element : Svg.set_attr element Js.t -> set Js.t = Js.Unsafe.coerce
-
-let raphael n w h = Js.Unsafe.fun_call (Js.Unsafe.variable "Raphael") [|Js.Unsafe.inject n; Js.Unsafe.inject w; Js.Unsafe.inject h|]
+let raphael node w h =
+  Js.Unsafe.fun_call
+    (Js.Unsafe.variable "Raphael")
+    [|Js.Unsafe.inject node; Js.Unsafe.inject w; Js.Unsafe.inject h|]
+let raphael_byId id w h =
+  Js.Unsafe.fun_call
+    (Js.Unsafe.variable "Raphael")
+    [|Js.Unsafe.inject id; Js.Unsafe.inject w; Js.Unsafe.inject h|]
+let raphael_coord x y w h =
+  Js.Unsafe.fun_call
+    (Js.Unsafe.variable "Raphael")
+    [|Js.Unsafe.inject x; Js.Unsafe.inject y;
+      Js.Unsafe.inject w; Js.Unsafe.inject h
+    |]
