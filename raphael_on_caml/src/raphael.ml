@@ -34,6 +34,44 @@ class type bbox = object
 
 end
 
+class type with_events = object
+
+  (* Raphael wrappers for event handlers *)
+  method click  :
+    (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
+  method unclick:
+    (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
+  method dblclick  :
+    (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
+  method undblclick:
+    (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
+  method mousedown  :
+    (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
+  method unmousedown:
+    (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
+  method mousemove  :
+    (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
+  method unmousemove:
+    (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
+  method mouseout  :
+    (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
+  method unmouseout:
+    (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
+  method mouseover  :
+    (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
+  method unmouseover:
+    (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
+  method mouseup  :
+    (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
+  method unmouseup:
+    (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
+  method hover  :
+    (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
+  method unhover:
+    (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
+
+end
+
 
 class type ['attr] element = object ('self)
 
@@ -84,26 +122,17 @@ class type ['attr] element = object ('self)
   (* Gimme moar! *)
   method clone: unit -> 'self Js.t Js.meth
 
-  (* Three stage dragging *)
-  method drag: (unit -> unit) Js.callback -> (int -> int -> unit) Js.callback -> (unit -> unit) Js.callback -> unit Js.meth
+  (* Three stage dragging   /!\ argument order: move, start, end  *)
+  method drag:
+      (int -> int -> unit) Js.callback
+    -> (Dom_html.mouseEvent Js.t -> unit) Js.callback
+    -> (unit -> unit) Js.callback -> unit Js.meth
+  method undrag:
+      (int -> int -> unit) Js.callback
+    -> (Dom_html.mouseEvent Js.t -> unit) Js.callback
+    -> (unit -> unit) Js.callback -> unit Js.meth
 
-  (* Wrappers for other event handlers *)
-  method click  : (Dom_html.mouseEvent -> unit) Js.callback -> unit
-  method unclick: (Dom_html.mouseEvent -> unit) Js.callback -> unit
-  method dblclick  : (Dom_html.mouseEvent -> unit) Js.callback -> unit
-  method undblclick: (Dom_html.mouseEvent -> unit) Js.callback -> unit
-  method mousedown  : (Dom_html.mouseEvent -> unit) Js.callback -> unit
-  method unmousedown: (Dom_html.mouseEvent -> unit) Js.callback -> unit
-  method mousemove  : (Dom_html.mouseEvent -> unit) Js.callback -> unit
-  method unmousemove: (Dom_html.mouseEvent -> unit) Js.callback -> unit
-  method mouseout  : (Dom_html.mouseEvent -> unit) Js.callback -> unit
-  method unmouseout: (Dom_html.mouseEvent -> unit) Js.callback -> unit
-  method mouseover  : (Dom_html.mouseEvent -> unit) Js.callback -> unit
-  method unmouseover: (Dom_html.mouseEvent -> unit) Js.callback -> unit
-  method mouseup  : (Dom_html.mouseEvent -> unit) Js.callback -> unit
-  method unmouseup: (Dom_html.mouseEvent -> unit) Js.callback -> unit
-  method hover  : (Dom_html.mouseEvent -> unit) Js.callback -> unit
-  method unhover: (Dom_html.mouseEvent -> unit) Js.callback -> unit
+  inherit with_events
 
 end
 
@@ -198,7 +227,7 @@ and paper = object
 
   method setSize: int -> int -> unit Js.meth
 
-  method getRGB: Js.js_string -> Svg.paint Js.t Js.meth
+  method getRGB: Js.js_string Js.t -> Svg.paint Js.t Js.meth
 
   method angle_hz: int -> int -> int -> int -> int Js.meth
   method angle:    int -> int -> int -> int -> int -> int -> int Js.meth

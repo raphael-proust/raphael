@@ -16,6 +16,11 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  *)
 
+
+
+
+
+
 class type point =
   object
     method alpha : int Js.readonly_prop
@@ -28,6 +33,41 @@ class type bbox =
     method width : int Js.readonly_prop
     method x : int Js.readonly_prop
     method y : int Js.readonly_prop
+  end
+class type with_events =
+  object
+    method click :
+      (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
+    method dblclick :
+      (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
+    method hover :
+      (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
+    method mousedown :
+      (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
+    method mousemove :
+      (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
+    method mouseout :
+      (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
+    method mouseover :
+      (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
+    method mouseup :
+      (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
+    method unclick :
+      (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
+    method undblclick :
+      (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
+    method unhover :
+      (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
+    method unmousedown :
+      (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
+    method unmousemove :
+      (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
+    method unmouseout :
+      (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
+    method unmouseover :
+      (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
+    method unmouseup :
+      (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
   end
 class type ['a] element =
   object ('b)
@@ -50,23 +90,31 @@ class type ['a] element =
       'a Js.t ->
       int -> Js.js_string Js.t -> (unit -> unit) Js.callback -> unit Js.meth
     method attr : 'a Js.t Js.readonly_prop
-    method click : (Dom_html.mouseEvent -> unit) Js.callback -> unit
+    method click :
+      (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
     method clone : unit -> 'b Js.t Js.meth
-    method dblclick : (Dom_html.mouseEvent -> unit) Js.callback -> unit
+    method dblclick :
+      (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
     method drag :
-      (unit -> unit) Js.callback ->
       (int -> int -> unit) Js.callback ->
+      (Dom_html.mouseEvent Js.t -> unit) Js.callback ->
       (unit -> unit) Js.callback -> unit Js.meth
     method getBBox : unit -> bbox Js.t Js.meth
     method hide : unit -> unit Js.meth
-    method hover : (Dom_html.mouseEvent -> unit) Js.callback -> unit
+    method hover :
+      (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
     method insertAfter : 'a element Js.t -> unit Js.meth
     method insertBefore : 'a element Js.t -> unit Js.meth
-    method mousedown : (Dom_html.mouseEvent -> unit) Js.callback -> unit
-    method mousemove : (Dom_html.mouseEvent -> unit) Js.callback -> unit
-    method mouseout : (Dom_html.mouseEvent -> unit) Js.callback -> unit
-    method mouseover : (Dom_html.mouseEvent -> unit) Js.callback -> unit
-    method mouseup : (Dom_html.mouseEvent -> unit) Js.callback -> unit
+    method mousedown :
+      (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
+    method mousemove :
+      (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
+    method mouseout :
+      (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
+    method mouseover :
+      (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
+    method mouseup :
+      (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
     method node : Dom.node Js.t Js.readonly_prop
     method onAnimation : (unit -> unit) Js.callback -> unit Js.meth
     method remove : unit -> unit Js.meth
@@ -79,16 +127,44 @@ class type ['a] element =
     method toBack : unit -> unit Js.meth
     method toFront : unit -> unit Js.meth
     method translate : int -> int -> unit Js.meth
-    method unclick : (Dom_html.mouseEvent -> unit) Js.callback -> unit
-    method undblclick : (Dom_html.mouseEvent -> unit) Js.callback -> unit
-    method unhover : (Dom_html.mouseEvent -> unit) Js.callback -> unit
-    method unmousedown : (Dom_html.mouseEvent -> unit) Js.callback -> unit
-    method unmousemove : (Dom_html.mouseEvent -> unit) Js.callback -> unit
-    method unmouseout : (Dom_html.mouseEvent -> unit) Js.callback -> unit
-    method unmouseover : (Dom_html.mouseEvent -> unit) Js.callback -> unit
-    method unmouseup : (Dom_html.mouseEvent -> unit) Js.callback -> unit
+    method unclick :
+      (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
+    method undblclick :
+      (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
+    method undrag :
+      (int -> int -> unit) Js.callback ->
+      (Dom_html.mouseEvent Js.t -> unit) Js.callback ->
+      (unit -> unit) Js.callback -> unit Js.meth
+    method unhover :
+      (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
+    method unmousedown :
+      (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
+    method unmousemove :
+      (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
+    method unmouseout :
+      (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
+    method unmouseover :
+      (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
+    method unmouseup :
+      (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
   end
-class type circle =
+class type rechack =
+  object
+    method animateAlong : path -> int -> unit Js.meth
+    method animateAlongBack : path -> int -> unit Js.meth
+    method animateAlongBack_callback :
+      path -> int -> (unit -> unit) Js.callback -> unit Js.meth
+    method animateAlongBack_rotate : path -> int -> bool Js.t -> unit Js.meth
+    method animateAlongBack_rotatecallback :
+      path -> int -> bool Js.t -> (unit -> unit) Js.callback -> unit Js.meth
+    method animateAlong_callback :
+      path -> int -> (unit -> unit) Js.callback -> unit Js.meth
+    method animateAlong_rotate : path -> int -> bool Js.t -> unit Js.meth
+    method animateAlong_rotatecallback :
+      path -> int -> bool Js.t -> (unit -> unit) Js.callback -> unit Js.meth
+    method paper : paper Js.t Js.readonly_prop
+  end
+and circle =
   object ('a)
     method animate : Svg.circle_attr Js.t -> int -> unit Js.meth
     method animateAlong : path -> int -> unit Js.meth
@@ -125,23 +201,31 @@ class type circle =
       Svg.circle_attr Js.t ->
       int -> Js.js_string Js.t -> (unit -> unit) Js.callback -> unit Js.meth
     method attr : Svg.circle_attr Js.t Js.readonly_prop
-    method click : (Dom_html.mouseEvent -> unit) Js.callback -> unit
+    method click :
+      (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
     method clone : unit -> 'a Js.t Js.meth
-    method dblclick : (Dom_html.mouseEvent -> unit) Js.callback -> unit
+    method dblclick :
+      (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
     method drag :
-      (unit -> unit) Js.callback ->
       (int -> int -> unit) Js.callback ->
+      (Dom_html.mouseEvent Js.t -> unit) Js.callback ->
       (unit -> unit) Js.callback -> unit Js.meth
     method getBBox : unit -> bbox Js.t Js.meth
     method hide : unit -> unit Js.meth
-    method hover : (Dom_html.mouseEvent -> unit) Js.callback -> unit
+    method hover :
+      (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
     method insertAfter : Svg.circle_attr element Js.t -> unit Js.meth
     method insertBefore : Svg.circle_attr element Js.t -> unit Js.meth
-    method mousedown : (Dom_html.mouseEvent -> unit) Js.callback -> unit
-    method mousemove : (Dom_html.mouseEvent -> unit) Js.callback -> unit
-    method mouseout : (Dom_html.mouseEvent -> unit) Js.callback -> unit
-    method mouseover : (Dom_html.mouseEvent -> unit) Js.callback -> unit
-    method mouseup : (Dom_html.mouseEvent -> unit) Js.callback -> unit
+    method mousedown :
+      (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
+    method mousemove :
+      (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
+    method mouseout :
+      (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
+    method mouseover :
+      (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
+    method mouseup :
+      (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
     method node : Dom.node Js.t Js.readonly_prop
     method onAnimation : (unit -> unit) Js.callback -> unit Js.meth
     method paper : paper Js.t Js.readonly_prop
@@ -155,14 +239,26 @@ class type circle =
     method toBack : unit -> unit Js.meth
     method toFront : unit -> unit Js.meth
     method translate : int -> int -> unit Js.meth
-    method unclick : (Dom_html.mouseEvent -> unit) Js.callback -> unit
-    method undblclick : (Dom_html.mouseEvent -> unit) Js.callback -> unit
-    method unhover : (Dom_html.mouseEvent -> unit) Js.callback -> unit
-    method unmousedown : (Dom_html.mouseEvent -> unit) Js.callback -> unit
-    method unmousemove : (Dom_html.mouseEvent -> unit) Js.callback -> unit
-    method unmouseout : (Dom_html.mouseEvent -> unit) Js.callback -> unit
-    method unmouseover : (Dom_html.mouseEvent -> unit) Js.callback -> unit
-    method unmouseup : (Dom_html.mouseEvent -> unit) Js.callback -> unit
+    method unclick :
+      (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
+    method undblclick :
+      (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
+    method undrag :
+      (int -> int -> unit) Js.callback ->
+      (Dom_html.mouseEvent Js.t -> unit) Js.callback ->
+      (unit -> unit) Js.callback -> unit Js.meth
+    method unhover :
+      (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
+    method unmousedown :
+      (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
+    method unmousemove :
+      (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
+    method unmouseout :
+      (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
+    method unmouseover :
+      (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
+    method unmouseup :
+      (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
   end
 and rect =
   object ('a)
@@ -199,23 +295,31 @@ and rect =
       Svg.rect_attr Js.t ->
       int -> Js.js_string Js.t -> (unit -> unit) Js.callback -> unit Js.meth
     method attr : Svg.rect_attr Js.t Js.readonly_prop
-    method click : (Dom_html.mouseEvent -> unit) Js.callback -> unit
+    method click :
+      (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
     method clone : unit -> 'a Js.t Js.meth
-    method dblclick : (Dom_html.mouseEvent -> unit) Js.callback -> unit
+    method dblclick :
+      (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
     method drag :
-      (unit -> unit) Js.callback ->
       (int -> int -> unit) Js.callback ->
+      (Dom_html.mouseEvent Js.t -> unit) Js.callback ->
       (unit -> unit) Js.callback -> unit Js.meth
     method getBBox : unit -> bbox Js.t Js.meth
     method hide : unit -> unit Js.meth
-    method hover : (Dom_html.mouseEvent -> unit) Js.callback -> unit
+    method hover :
+      (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
     method insertAfter : Svg.rect_attr element Js.t -> unit Js.meth
     method insertBefore : Svg.rect_attr element Js.t -> unit Js.meth
-    method mousedown : (Dom_html.mouseEvent -> unit) Js.callback -> unit
-    method mousemove : (Dom_html.mouseEvent -> unit) Js.callback -> unit
-    method mouseout : (Dom_html.mouseEvent -> unit) Js.callback -> unit
-    method mouseover : (Dom_html.mouseEvent -> unit) Js.callback -> unit
-    method mouseup : (Dom_html.mouseEvent -> unit) Js.callback -> unit
+    method mousedown :
+      (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
+    method mousemove :
+      (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
+    method mouseout :
+      (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
+    method mouseover :
+      (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
+    method mouseup :
+      (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
     method node : Dom.node Js.t Js.readonly_prop
     method onAnimation : (unit -> unit) Js.callback -> unit Js.meth
     method paper : paper Js.t Js.readonly_prop
@@ -229,14 +333,26 @@ and rect =
     method toBack : unit -> unit Js.meth
     method toFront : unit -> unit Js.meth
     method translate : int -> int -> unit Js.meth
-    method unclick : (Dom_html.mouseEvent -> unit) Js.callback -> unit
-    method undblclick : (Dom_html.mouseEvent -> unit) Js.callback -> unit
-    method unhover : (Dom_html.mouseEvent -> unit) Js.callback -> unit
-    method unmousedown : (Dom_html.mouseEvent -> unit) Js.callback -> unit
-    method unmousemove : (Dom_html.mouseEvent -> unit) Js.callback -> unit
-    method unmouseout : (Dom_html.mouseEvent -> unit) Js.callback -> unit
-    method unmouseover : (Dom_html.mouseEvent -> unit) Js.callback -> unit
-    method unmouseup : (Dom_html.mouseEvent -> unit) Js.callback -> unit
+    method unclick :
+      (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
+    method undblclick :
+      (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
+    method undrag :
+      (int -> int -> unit) Js.callback ->
+      (Dom_html.mouseEvent Js.t -> unit) Js.callback ->
+      (unit -> unit) Js.callback -> unit Js.meth
+    method unhover :
+      (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
+    method unmousedown :
+      (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
+    method unmousemove :
+      (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
+    method unmouseout :
+      (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
+    method unmouseover :
+      (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
+    method unmouseup :
+      (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
   end
 and ellipse =
   object ('a)
@@ -276,23 +392,31 @@ and ellipse =
       Svg.ellipse_attr Js.t ->
       int -> Js.js_string Js.t -> (unit -> unit) Js.callback -> unit Js.meth
     method attr : Svg.ellipse_attr Js.t Js.readonly_prop
-    method click : (Dom_html.mouseEvent -> unit) Js.callback -> unit
+    method click :
+      (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
     method clone : unit -> 'a Js.t Js.meth
-    method dblclick : (Dom_html.mouseEvent -> unit) Js.callback -> unit
+    method dblclick :
+      (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
     method drag :
-      (unit -> unit) Js.callback ->
       (int -> int -> unit) Js.callback ->
+      (Dom_html.mouseEvent Js.t -> unit) Js.callback ->
       (unit -> unit) Js.callback -> unit Js.meth
     method getBBox : unit -> bbox Js.t Js.meth
     method hide : unit -> unit Js.meth
-    method hover : (Dom_html.mouseEvent -> unit) Js.callback -> unit
+    method hover :
+      (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
     method insertAfter : Svg.ellipse_attr element Js.t -> unit Js.meth
     method insertBefore : Svg.ellipse_attr element Js.t -> unit Js.meth
-    method mousedown : (Dom_html.mouseEvent -> unit) Js.callback -> unit
-    method mousemove : (Dom_html.mouseEvent -> unit) Js.callback -> unit
-    method mouseout : (Dom_html.mouseEvent -> unit) Js.callback -> unit
-    method mouseover : (Dom_html.mouseEvent -> unit) Js.callback -> unit
-    method mouseup : (Dom_html.mouseEvent -> unit) Js.callback -> unit
+    method mousedown :
+      (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
+    method mousemove :
+      (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
+    method mouseout :
+      (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
+    method mouseover :
+      (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
+    method mouseup :
+      (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
     method node : Dom.node Js.t Js.readonly_prop
     method onAnimation : (unit -> unit) Js.callback -> unit Js.meth
     method paper : paper Js.t Js.readonly_prop
@@ -306,14 +430,26 @@ and ellipse =
     method toBack : unit -> unit Js.meth
     method toFront : unit -> unit Js.meth
     method translate : int -> int -> unit Js.meth
-    method unclick : (Dom_html.mouseEvent -> unit) Js.callback -> unit
-    method undblclick : (Dom_html.mouseEvent -> unit) Js.callback -> unit
-    method unhover : (Dom_html.mouseEvent -> unit) Js.callback -> unit
-    method unmousedown : (Dom_html.mouseEvent -> unit) Js.callback -> unit
-    method unmousemove : (Dom_html.mouseEvent -> unit) Js.callback -> unit
-    method unmouseout : (Dom_html.mouseEvent -> unit) Js.callback -> unit
-    method unmouseover : (Dom_html.mouseEvent -> unit) Js.callback -> unit
-    method unmouseup : (Dom_html.mouseEvent -> unit) Js.callback -> unit
+    method unclick :
+      (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
+    method undblclick :
+      (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
+    method undrag :
+      (int -> int -> unit) Js.callback ->
+      (Dom_html.mouseEvent Js.t -> unit) Js.callback ->
+      (unit -> unit) Js.callback -> unit Js.meth
+    method unhover :
+      (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
+    method unmousedown :
+      (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
+    method unmousemove :
+      (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
+    method unmouseout :
+      (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
+    method unmouseover :
+      (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
+    method unmouseup :
+      (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
   end
 and image =
   object ('a)
@@ -352,23 +488,31 @@ and image =
       Svg.image_attr Js.t ->
       int -> Js.js_string Js.t -> (unit -> unit) Js.callback -> unit Js.meth
     method attr : Svg.image_attr Js.t Js.readonly_prop
-    method click : (Dom_html.mouseEvent -> unit) Js.callback -> unit
+    method click :
+      (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
     method clone : unit -> 'a Js.t Js.meth
-    method dblclick : (Dom_html.mouseEvent -> unit) Js.callback -> unit
+    method dblclick :
+      (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
     method drag :
-      (unit -> unit) Js.callback ->
       (int -> int -> unit) Js.callback ->
+      (Dom_html.mouseEvent Js.t -> unit) Js.callback ->
       (unit -> unit) Js.callback -> unit Js.meth
     method getBBox : unit -> bbox Js.t Js.meth
     method hide : unit -> unit Js.meth
-    method hover : (Dom_html.mouseEvent -> unit) Js.callback -> unit
+    method hover :
+      (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
     method insertAfter : Svg.image_attr element Js.t -> unit Js.meth
     method insertBefore : Svg.image_attr element Js.t -> unit Js.meth
-    method mousedown : (Dom_html.mouseEvent -> unit) Js.callback -> unit
-    method mousemove : (Dom_html.mouseEvent -> unit) Js.callback -> unit
-    method mouseout : (Dom_html.mouseEvent -> unit) Js.callback -> unit
-    method mouseover : (Dom_html.mouseEvent -> unit) Js.callback -> unit
-    method mouseup : (Dom_html.mouseEvent -> unit) Js.callback -> unit
+    method mousedown :
+      (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
+    method mousemove :
+      (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
+    method mouseout :
+      (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
+    method mouseover :
+      (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
+    method mouseup :
+      (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
     method node : Dom.node Js.t Js.readonly_prop
     method onAnimation : (unit -> unit) Js.callback -> unit Js.meth
     method paper : paper Js.t Js.readonly_prop
@@ -382,14 +526,26 @@ and image =
     method toBack : unit -> unit Js.meth
     method toFront : unit -> unit Js.meth
     method translate : int -> int -> unit Js.meth
-    method unclick : (Dom_html.mouseEvent -> unit) Js.callback -> unit
-    method undblclick : (Dom_html.mouseEvent -> unit) Js.callback -> unit
-    method unhover : (Dom_html.mouseEvent -> unit) Js.callback -> unit
-    method unmousedown : (Dom_html.mouseEvent -> unit) Js.callback -> unit
-    method unmousemove : (Dom_html.mouseEvent -> unit) Js.callback -> unit
-    method unmouseout : (Dom_html.mouseEvent -> unit) Js.callback -> unit
-    method unmouseover : (Dom_html.mouseEvent -> unit) Js.callback -> unit
-    method unmouseup : (Dom_html.mouseEvent -> unit) Js.callback -> unit
+    method unclick :
+      (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
+    method undblclick :
+      (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
+    method undrag :
+      (int -> int -> unit) Js.callback ->
+      (Dom_html.mouseEvent Js.t -> unit) Js.callback ->
+      (unit -> unit) Js.callback -> unit Js.meth
+    method unhover :
+      (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
+    method unmousedown :
+      (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
+    method unmousemove :
+      (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
+    method unmouseout :
+      (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
+    method unmouseover :
+      (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
+    method unmouseup :
+      (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
   end
 and text =
   object ('a)
@@ -426,23 +582,31 @@ and text =
       Svg.text_attr Js.t ->
       int -> Js.js_string Js.t -> (unit -> unit) Js.callback -> unit Js.meth
     method attr : Svg.text_attr Js.t Js.readonly_prop
-    method click : (Dom_html.mouseEvent -> unit) Js.callback -> unit
+    method click :
+      (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
     method clone : unit -> 'a Js.t Js.meth
-    method dblclick : (Dom_html.mouseEvent -> unit) Js.callback -> unit
+    method dblclick :
+      (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
     method drag :
-      (unit -> unit) Js.callback ->
       (int -> int -> unit) Js.callback ->
+      (Dom_html.mouseEvent Js.t -> unit) Js.callback ->
       (unit -> unit) Js.callback -> unit Js.meth
     method getBBox : unit -> bbox Js.t Js.meth
     method hide : unit -> unit Js.meth
-    method hover : (Dom_html.mouseEvent -> unit) Js.callback -> unit
+    method hover :
+      (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
     method insertAfter : Svg.text_attr element Js.t -> unit Js.meth
     method insertBefore : Svg.text_attr element Js.t -> unit Js.meth
-    method mousedown : (Dom_html.mouseEvent -> unit) Js.callback -> unit
-    method mousemove : (Dom_html.mouseEvent -> unit) Js.callback -> unit
-    method mouseout : (Dom_html.mouseEvent -> unit) Js.callback -> unit
-    method mouseover : (Dom_html.mouseEvent -> unit) Js.callback -> unit
-    method mouseup : (Dom_html.mouseEvent -> unit) Js.callback -> unit
+    method mousedown :
+      (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
+    method mousemove :
+      (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
+    method mouseout :
+      (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
+    method mouseover :
+      (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
+    method mouseup :
+      (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
     method node : Dom.node Js.t Js.readonly_prop
     method onAnimation : (unit -> unit) Js.callback -> unit Js.meth
     method paper : paper Js.t Js.readonly_prop
@@ -456,14 +620,26 @@ and text =
     method toBack : unit -> unit Js.meth
     method toFront : unit -> unit Js.meth
     method translate : int -> int -> unit Js.meth
-    method unclick : (Dom_html.mouseEvent -> unit) Js.callback -> unit
-    method undblclick : (Dom_html.mouseEvent -> unit) Js.callback -> unit
-    method unhover : (Dom_html.mouseEvent -> unit) Js.callback -> unit
-    method unmousedown : (Dom_html.mouseEvent -> unit) Js.callback -> unit
-    method unmousemove : (Dom_html.mouseEvent -> unit) Js.callback -> unit
-    method unmouseout : (Dom_html.mouseEvent -> unit) Js.callback -> unit
-    method unmouseover : (Dom_html.mouseEvent -> unit) Js.callback -> unit
-    method unmouseup : (Dom_html.mouseEvent -> unit) Js.callback -> unit
+    method unclick :
+      (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
+    method undblclick :
+      (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
+    method undrag :
+      (int -> int -> unit) Js.callback ->
+      (Dom_html.mouseEvent Js.t -> unit) Js.callback ->
+      (unit -> unit) Js.callback -> unit Js.meth
+    method unhover :
+      (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
+    method unmousedown :
+      (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
+    method unmousemove :
+      (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
+    method unmouseout :
+      (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
+    method unmouseover :
+      (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
+    method unmouseup :
+      (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
   end
 and path =
   object ('a)
@@ -500,26 +676,34 @@ and path =
       Svg.path_attr Js.t ->
       int -> Js.js_string Js.t -> (unit -> unit) Js.callback -> unit Js.meth
     method attr : Svg.path_attr Js.t Js.readonly_prop
-    method click : (Dom_html.mouseEvent -> unit) Js.callback -> unit
+    method click :
+      (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
     method clone : unit -> 'a Js.t Js.meth
-    method dblclick : (Dom_html.mouseEvent -> unit) Js.callback -> unit
+    method dblclick :
+      (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
     method drag :
-      (unit -> unit) Js.callback ->
       (int -> int -> unit) Js.callback ->
+      (Dom_html.mouseEvent Js.t -> unit) Js.callback ->
       (unit -> unit) Js.callback -> unit Js.meth
     method getBBox : unit -> bbox Js.t Js.meth
     method getPointAtLength : int -> point Js.t Js.meth
     method getSubpath : int -> int -> path Js.t Js.meth
     method getTotalLength : unit -> int Js.meth
     method hide : unit -> unit Js.meth
-    method hover : (Dom_html.mouseEvent -> unit) Js.callback -> unit
+    method hover :
+      (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
     method insertAfter : Svg.path_attr element Js.t -> unit Js.meth
     method insertBefore : Svg.path_attr element Js.t -> unit Js.meth
-    method mousedown : (Dom_html.mouseEvent -> unit) Js.callback -> unit
-    method mousemove : (Dom_html.mouseEvent -> unit) Js.callback -> unit
-    method mouseout : (Dom_html.mouseEvent -> unit) Js.callback -> unit
-    method mouseover : (Dom_html.mouseEvent -> unit) Js.callback -> unit
-    method mouseup : (Dom_html.mouseEvent -> unit) Js.callback -> unit
+    method mousedown :
+      (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
+    method mousemove :
+      (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
+    method mouseout :
+      (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
+    method mouseover :
+      (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
+    method mouseup :
+      (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
     method node : Dom.node Js.t Js.readonly_prop
     method onAnimation : (unit -> unit) Js.callback -> unit Js.meth
     method paper : paper Js.t Js.readonly_prop
@@ -533,14 +717,26 @@ and path =
     method toBack : unit -> unit Js.meth
     method toFront : unit -> unit Js.meth
     method translate : int -> int -> unit Js.meth
-    method unclick : (Dom_html.mouseEvent -> unit) Js.callback -> unit
-    method undblclick : (Dom_html.mouseEvent -> unit) Js.callback -> unit
-    method unhover : (Dom_html.mouseEvent -> unit) Js.callback -> unit
-    method unmousedown : (Dom_html.mouseEvent -> unit) Js.callback -> unit
-    method unmousemove : (Dom_html.mouseEvent -> unit) Js.callback -> unit
-    method unmouseout : (Dom_html.mouseEvent -> unit) Js.callback -> unit
-    method unmouseover : (Dom_html.mouseEvent -> unit) Js.callback -> unit
-    method unmouseup : (Dom_html.mouseEvent -> unit) Js.callback -> unit
+    method unclick :
+      (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
+    method undblclick :
+      (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
+    method undrag :
+      (int -> int -> unit) Js.callback ->
+      (Dom_html.mouseEvent Js.t -> unit) Js.callback ->
+      (unit -> unit) Js.callback -> unit Js.meth
+    method unhover :
+      (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
+    method unmousedown :
+      (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
+    method unmousemove :
+      (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
+    method unmouseout :
+      (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
+    method unmouseover :
+      (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
+    method unmouseup :
+      (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
   end
 and set =
   object ('a)
@@ -577,25 +773,33 @@ and set =
       Svg.set_attr Js.t ->
       int -> Js.js_string Js.t -> (unit -> unit) Js.callback -> unit Js.meth
     method attr : Svg.set_attr Js.t Js.readonly_prop
-    method click : (Dom_html.mouseEvent -> unit) Js.callback -> unit
+    method click :
+      (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
     method clone : unit -> 'a Js.t Js.meth
-    method dblclick : (Dom_html.mouseEvent -> unit) Js.callback -> unit
+    method dblclick :
+      (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
     method drag :
-      (unit -> unit) Js.callback ->
       (int -> int -> unit) Js.callback ->
+      (Dom_html.mouseEvent Js.t -> unit) Js.callback ->
       (unit -> unit) Js.callback -> unit Js.meth
     method getBBox : unit -> bbox Js.t Js.meth
     method hide : unit -> unit Js.meth
-    method hover : (Dom_html.mouseEvent -> unit) Js.callback -> unit
+    method hover :
+      (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
     method insertAfter : Svg.set_attr element Js.t -> unit Js.meth
     method insertBefore : Svg.set_attr element Js.t -> unit Js.meth
     method items : 'b element Js.t Js.js_array Js.t Js.readonly_prop
     method length : int Js.readonly_prop
-    method mousedown : (Dom_html.mouseEvent -> unit) Js.callback -> unit
-    method mousemove : (Dom_html.mouseEvent -> unit) Js.callback -> unit
-    method mouseout : (Dom_html.mouseEvent -> unit) Js.callback -> unit
-    method mouseover : (Dom_html.mouseEvent -> unit) Js.callback -> unit
-    method mouseup : (Dom_html.mouseEvent -> unit) Js.callback -> unit
+    method mousedown :
+      (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
+    method mousemove :
+      (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
+    method mouseout :
+      (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
+    method mouseover :
+      (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
+    method mouseup :
+      (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
     method node : Dom.node Js.t Js.readonly_prop
     method onAnimation : (unit -> unit) Js.callback -> unit Js.meth
     method paper : paper Js.t Js.readonly_prop
@@ -620,14 +824,26 @@ and set =
     method toBack : unit -> unit Js.meth
     method toFront : unit -> unit Js.meth
     method translate : int -> int -> unit Js.meth
-    method unclick : (Dom_html.mouseEvent -> unit) Js.callback -> unit
-    method undblclick : (Dom_html.mouseEvent -> unit) Js.callback -> unit
-    method unhover : (Dom_html.mouseEvent -> unit) Js.callback -> unit
-    method unmousedown : (Dom_html.mouseEvent -> unit) Js.callback -> unit
-    method unmousemove : (Dom_html.mouseEvent -> unit) Js.callback -> unit
-    method unmouseout : (Dom_html.mouseEvent -> unit) Js.callback -> unit
-    method unmouseover : (Dom_html.mouseEvent -> unit) Js.callback -> unit
-    method unmouseup : (Dom_html.mouseEvent -> unit) Js.callback -> unit
+    method unclick :
+      (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
+    method undblclick :
+      (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
+    method undrag :
+      (int -> int -> unit) Js.callback ->
+      (Dom_html.mouseEvent Js.t -> unit) Js.callback ->
+      (unit -> unit) Js.callback -> unit Js.meth
+    method unhover :
+      (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
+    method unmousedown :
+      (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
+    method unmousemove :
+      (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
+    method unmouseout :
+      (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
+    method unmouseover :
+      (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
+    method unmouseup :
+      (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
   end
 and paper =
   object
@@ -645,7 +861,7 @@ and paper =
       Js.js_string Js.t -> int -> Js.js_string Js.t -> Svg.font Js.t Js.meth
     method getFont_weighted :
       Js.js_string Js.t -> int -> Svg.font Js.t Js.meth
-    method getRGB : Js.js_string -> Svg.paint Js.t Js.meth
+    method getRGB : Js.js_string Js.t -> Svg.paint Js.t Js.meth
     method image :
       Js.js_string Js.t -> int -> int -> int -> int -> image Js.t Js.meth
     method path : Js.js_string Js.t -> path Js.t Js.meth

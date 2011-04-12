@@ -39,12 +39,13 @@ end
 class type graphic_attr = object
   method opacity: float prop
   method rotation: int prop
+  method fill: js_string t prop
+  method stroke: js_string t prop
 end
 
 (* Attributes of shapes *)
 class type basic_shape_attr = object
-  method fill: paint prop
-  method stroke: paint prop
+  inherit graphic_attr
 end
 class type shape_attr = object
   inherit basic_shape_attr

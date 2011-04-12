@@ -113,8 +113,8 @@ let _ =
         wt >>= fun () ->
         anim_c ()
       in
-      anim_e ();
-      anim_r ();
-      anim_c ()
+      Lwt.ignore_result (anim_e ());
+      Lwt.ignore_result (anim_r ());
+      Lwt.ignore_result (anim_c ())
 
     )
