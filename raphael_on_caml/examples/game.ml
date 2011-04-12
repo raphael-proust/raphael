@@ -25,14 +25,8 @@ let cell_count = 10
 
 (*The canvas on which the game board is drawn*)
 let paper =
-  Raphael.raphael
-    ((Js.Opt.get
-       (Dom_html.document##getElementById(Js.string "paper"))
-       (fun () ->
-          Dom_html.window##alert
-            (Js.string ("Can't get Element paper By Id"));
-          failwith "getElementById failed")
-     ) :> Dom.node Js.t)
+  Raphael.raphael_byId
+    (Js.string "board")
     (cell_size * cell_count)
     (cell_size * cell_count)
 
@@ -67,11 +61,11 @@ let flip_1 x y = (*flip one cell on the board*)
     let a = r##attr in
     if b then begin
       a##fill <- Js.string "rgba(26,26,26,.95)";
-      r##animate(a, 500); (*smooth animation*)
+      r##animate(a, 200); (*smooth animation*)
       board.(x).(y) <- (false, r)
     end else begin
       a##fill <- Js.string "rgba(230,230,230,.95)";
-      r##animate(a, 500);
+      r##animate(a, 200);
       board.(x).(y) <- (true, r)
     end
 
@@ -93,14 +87,17 @@ let flip, set_plus, set_x =
     (fun () -> f := flip_x)
   )
 
+let update_hint i j = ()
+
 let _ = (*initialize the board*)
   Array.iteri
     (fun i arr -> Array.iteri
       (fun j (_, r) -> (*for each cell,*)
         let a = r##attr in
         a##fill <- Js.string "rgba(26,26,26,.95)";
-        r##animate(a, 250);
+        r##animate(a, 100);
         r##click (Js.wrap_callback (fun _ -> flip i j));
+        r##mouseover (Js.wrap_callback (fun _ -> update_hint i j));
         if Random.int 2 = 0 then flip_1 i j
       )
       arr

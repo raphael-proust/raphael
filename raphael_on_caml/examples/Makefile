@@ -4,7 +4,7 @@ include ../Makefile.common
 ####
 
 
-MLS=drawing.ml
+MLS=mini_game.ml game.ml
 BYTES=$(MLS:ml=byte)
 TARGETS=$(MLS:ml=js)
 LIB=../src/raphael.cma
