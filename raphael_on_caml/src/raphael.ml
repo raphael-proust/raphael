@@ -72,12 +72,6 @@ class type ['attr] element = object ('self)
   method animateWith_callback:       'a element -> 'attr Js.t -> int -> (unit -> unit) Js.callback -> unit Js.meth
   method animateWith_easingcallback: 'a element -> 'attr Js.t -> int -> Js.js_string Js.t -> (unit -> unit) Js.callback -> unit Js.meth
 
-(*
- *)
-
-(*
- *)
-
   (* Stop the animation *)
   method stop: unit -> unit Js.meth
 
