@@ -37,6 +37,7 @@ let paper =
     (cell_size * cell_count)
 
 
+(*
 let _ = (*The grid*)
   let line x0 y0 x1 y1 =
     Js.string (Printf.sprintf "M%d %dL%d %d" x0 y0 x1 y1)
@@ -46,6 +47,7 @@ let _ = (*The grid*)
     ignore (paper##path (line begining (i * cell_size) ending (i * cell_size)));
     ignore (paper##path (line (i * cell_size) begining (i * cell_size) ending))
   done
+*)
 
 
 let board = (*The game board: a matrix of squares with a boolean flag*)
@@ -65,11 +67,11 @@ let flip_1 x y = (*flip one cell on the board*)
     let a = r##attr in
     if b then begin
       a##fill <- Js.string "rgba(26,26,26,.95)";
-      r##animate(a, 250); (*smooth animation*)
+      r##animate(a, 500); (*smooth animation*)
       board.(x).(y) <- (false, r)
     end else begin
       a##fill <- Js.string "rgba(230,230,230,.95)";
-      r##animate(a, 250);
+      r##animate(a, 500);
       board.(x).(y) <- (true, r)
     end
 
@@ -131,8 +133,20 @@ let c8 = 15 * c1
 
 let plus_path =
   Js.string (Printf.sprintf
-  "M%d %dL%d %dL%d %dL%d %dL%d %dL%d %dL%d %dL%d %dL%d %dL%d %dL%d %dL%d %dL%d %d"
-  c1 c2 c1 c3 c2 c3 c2 c4 c3 c4 c3 c3 c4 c3 c4 c2 c3 c2 c3 c1 c2 c1 c2 c2 c1 c2
+  "M%d %dL%d %dL%d %dL%d %dL%d %dL%d %dL%d %dL%d %dL%d %dL%d %dL%d %dL%d %dL%d %dL%d %dL%d %dL%d %dL%d %dL%d %dL%d %dL%d %dL%d %d"
+  c1 c2
+  c1 c3
+  c2 c3 c2 c3 c2 c3
+  c2 c4
+  c3 c4
+  c3 c3 c3 c3 c3 c3
+  c4 c3
+  c4 c2
+  c3 c2 c3 c2 c3 c2
+  c3 c1
+  c2 c1
+  c2 c2 c2 c2 c2 c2
+  c1 c2
   )
 
 let x_path =
@@ -173,7 +187,7 @@ let button =
         a##path <- x_path;
         a##stroke <- Js.string "rgba(128,128,128,.95)";
         a##fill <- Js.string "rgba(26,26,26,.95)";
-        s##animate(a, 250)
+        s##animate_easing(a, 500, Js.string "<>")
       end else begin
         is_plus := true;
         set_plus ();
@@ -181,7 +195,7 @@ let button =
         a##path <- plus_path;
         a##stroke <- Js.string "rgba(26,26,26,.95)";
         a##fill <- Js.string "rgba(128,128,128,.95)";
-        s##animate(a, 250)
+        s##animate_easing(a, 500, Js.string "<>")
       end
   in
   callback ();
