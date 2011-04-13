@@ -20,8 +20,12 @@
 (*A simple game*)
 
 (*constants*)
-let cell_size = 25
+let cell_size  = 25
 let cell_count = 10
+let light_grey = Js.string "rgb(26,26,26)"
+let grey       = Js.string "rgb(128,128,128)"
+let dark_grey  = Js.string "rgb(230,230,230)"
+let ( >>= )    = Lwt.( >>= )
 
 (*The canvas on which the game board is drawn*)
 let paper =
@@ -31,7 +35,6 @@ let paper =
     (cell_size * cell_count)
 
 
-(*
 let _ = (*The grid*)
   let line x0 y0 x1 y1 =
     Js.string (Printf.sprintf "M%d %dL%d %d" x0 y0 x1 y1)
@@ -41,14 +44,20 @@ let _ = (*The grid*)
     ignore (paper##path (line begining (i * cell_size) ending (i * cell_size)));
     ignore (paper##path (line (i * cell_size) begining (i * cell_size) ending))
   done
-*)
 
 
 let board = (*The game board: a matrix of squares with a boolean flag*)
   Array.init cell_count
     (fun i -> Array.init cell_count
       (fun j ->
-        let r = paper##rect(i*cell_size, j*cell_size, cell_size, cell_size) in
+        let r =
+          paper##rect_rounded
+            ( i*cell_size + 1
+            , j*cell_size + 1
+            , cell_size - 2
+            , cell_size - 2
+            , 2)
+        in
         (false, r)
       )
     )
@@ -60,11 +69,11 @@ let flip_1 x y = (*flip one cell on the board*)
     let (b, r) = board.(x).(y) in
     let a = r##attr in
     if b then begin
-      a##fill <- Js.string "rgba(26,26,26,.95)";
+      a##fill <- light_grey;
       r##animate(a, 200); (*smooth animation*)
       board.(x).(y) <- (false, r)
     end else begin
-      a##fill <- Js.string "rgba(230,230,230,.95)";
+      a##fill <- dark_grey;
       r##animate(a, 200);
       board.(x).(y) <- (true, r)
     end
@@ -94,7 +103,7 @@ let _ = (*initialize the board*)
     (fun i arr -> Array.iteri
       (fun j (_, r) -> (*for each cell,*)
         let a = r##attr in
-        a##fill <- Js.string "rgba(26,26,26,.95)";
+        a##fill <- light_grey;
         r##animate(a, 100);
         r##click (Js.wrap_callback (fun _ -> flip i j));
         r##mouseover (Js.wrap_callback (fun _ -> update_hint i j));
@@ -108,14 +117,8 @@ let _ = (*initialize the board*)
 (*controls*)
 
 let control_panel =
-  Raphael.raphael
-    ((Js.Opt.get
-       (Dom_html.document##getElementById(Js.string "controls"))
-       (fun () ->
-          Dom_html.window##alert
-            (Js.string ("Can't get Element controls By Id"));
-          failwith "getElementById failed")
-     ) :> Dom.node Js.t)
+  Raphael.raphael_byId
+    (Js.string "controls")
     (cell_size * 8)
     (cell_size * 4)
 
@@ -172,8 +175,14 @@ let x_path =
   c5 c2
   )
 
+let () =
+  let background = control_panel##rect (0, 0, cell_size * 8, cell_size * 4) in
+  let ab = background##attr in
+  ab##fill <- grey;
+  background##animate_easing (ab, 100 ,Js.string "<>");
+  background##toBack()
 
-let button =
+let flip_button =
   let s = control_panel##path(Js.string "M 0 0") in
   let is_plus = ref false in
   let callback _ =
@@ -182,21 +191,39 @@ let button =
         set_x ();
         let a = s##attr in
         a##path <- x_path;
-        a##stroke <- Js.string "rgba(128,128,128,.95)";
-        a##fill <- Js.string "rgba(26,26,26,.95)";
+        a##fill <- light_grey;
         s##animate_easing(a, 500, Js.string "<>")
       end else begin
         is_plus := true;
         set_plus ();
         let a = s##attr in
         a##path <- plus_path;
-        a##stroke <- Js.string "rgba(26,26,26,.95)";
-        a##fill <- Js.string "rgba(128,128,128,.95)";
+        a##fill <- dark_grey;
         s##animate_easing(a, 500, Js.string "<>")
       end
   in
   callback ();
   s##click(Js.wrap_callback callback);
   s
+
+
+let load new_board =
+  Array.iteri
+    (fun i arr -> Array.iteri
+      (fun j b ->
+        if b then
+          if not (fst board.(i).(j)) then
+            flip_1 i j
+          else
+            ()
+        else
+          if fst board.(i).(j) then
+            flip_1 i j
+          else
+            ()
+      )
+      arr
+    )
+    new_board
 
 
