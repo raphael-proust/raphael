@@ -107,10 +107,10 @@ class type ['attr] element = object ('self)
   method animate_easingcallback: 'attr Js.t -> int -> Js.js_string Js.t -> (unit -> unit) Js.callback -> unit Js.meth
 
   (* Synchronized animation *)
-  method animateWith:                'a element -> 'attr Js.t -> int -> unit Js.meth
-  method animateWith_easing:         'a element -> 'attr Js.t -> int -> Js.js_string Js.t -> unit Js.meth
-  method animateWith_callback:       'a element -> 'attr Js.t -> int -> (unit -> unit) Js.callback -> unit Js.meth
-  method animateWith_easingcallback: 'a element -> 'attr Js.t -> int -> Js.js_string Js.t -> (unit -> unit) Js.callback -> unit Js.meth
+  method animateWith:                'a element Js.t -> 'attr Js.t -> int -> unit Js.meth
+  method animateWith_easing:         'a element Js.t -> 'attr Js.t -> int -> Js.js_string Js.t -> unit Js.meth
+  method animateWith_callback:       'a element Js.t -> 'attr Js.t -> int -> (unit -> unit) Js.callback -> unit Js.meth
+  method animateWith_easingcallback: 'a element Js.t -> 'attr Js.t -> int -> Js.js_string Js.t -> (unit -> unit) Js.callback -> unit Js.meth
 
   (* Stop the animation *)
   method stop:  unit Js.meth
@@ -144,16 +144,16 @@ class type circle = object
   method paper: paper Js.t Js.readonly_prop
 
   (* Animation along a path *)
-  method animateAlong:                path -> int -> unit Js.meth
-  method animateAlong_rotate:         path -> int -> bool Js.t -> unit Js.meth
-  method animateAlong_callback:       path -> int -> (unit -> unit) Js.callback -> unit Js.meth
-  method animateAlong_rotatecallback: path -> int -> bool Js.t -> (unit -> unit) Js.callback -> unit Js.meth
+  method animateAlong:                path Js.t -> int -> unit Js.meth
+  method animateAlong_rotate:         path Js.t -> int -> bool Js.t -> unit Js.meth
+  method animateAlong_callback:       path Js.t -> int -> (unit -> unit) Js.callback -> unit Js.meth
+  method animateAlong_rotatecallback: path Js.t -> int -> bool Js.t -> (unit -> unit) Js.callback -> unit Js.meth
 
   (* Animation along a path reversed *)
-  method animateAlongBack:                path -> int -> unit Js.meth
-  method animateAlongBack_rotate:         path -> int -> bool Js.t -> unit Js.meth
-  method animateAlongBack_callback:       path -> int -> (unit -> unit) Js.callback -> unit Js.meth
-  method animateAlongBack_rotatecallback: path -> int -> bool Js.t -> (unit -> unit) Js.callback -> unit Js.meth
+  method animateAlongBack:                path Js.t -> int -> unit Js.meth
+  method animateAlongBack_rotate:         path Js.t -> int -> bool Js.t -> unit Js.meth
+  method animateAlongBack_callback:       path Js.t -> int -> (unit -> unit) Js.callback -> unit Js.meth
+  method animateAlongBack_rotatecallback: path Js.t -> int -> bool Js.t -> (unit -> unit) Js.callback -> unit Js.meth
 
 end
 
@@ -162,16 +162,16 @@ and rect = object
   method paper: paper Js.t Js.readonly_prop
 
   (* Animation along a path *)
-  method animateAlong:                path -> int -> unit Js.meth
-  method animateAlong_rotate:         path -> int -> bool Js.t -> unit Js.meth
-  method animateAlong_callback:       path -> int -> (unit -> unit) Js.callback -> unit Js.meth
-  method animateAlong_rotatecallback: path -> int -> bool Js.t -> (unit -> unit) Js.callback -> unit Js.meth
+  method animateAlong:                path Js.t -> int -> unit Js.meth
+  method animateAlong_rotate:         path Js.t -> int -> bool Js.t -> unit Js.meth
+  method animateAlong_callback:       path Js.t -> int -> (unit -> unit) Js.callback -> unit Js.meth
+  method animateAlong_rotatecallback: path Js.t -> int -> bool Js.t -> (unit -> unit) Js.callback -> unit Js.meth
 
   (* Animation along a path reversed *)
-  method animateAlongBack:                path -> int -> unit Js.meth
-  method animateAlongBack_rotate:         path -> int -> bool Js.t -> unit Js.meth
-  method animateAlongBack_callback:       path -> int -> (unit -> unit) Js.callback -> unit Js.meth
-  method animateAlongBack_rotatecallback: path -> int -> bool Js.t -> (unit -> unit) Js.callback -> unit Js.meth
+  method animateAlongBack:                path Js.t -> int -> unit Js.meth
+  method animateAlongBack_rotate:         path Js.t -> int -> bool Js.t -> unit Js.meth
+  method animateAlongBack_callback:       path Js.t -> int -> (unit -> unit) Js.callback -> unit Js.meth
+  method animateAlongBack_rotatecallback: path Js.t -> int -> bool Js.t -> (unit -> unit) Js.callback -> unit Js.meth
 
 end
 
@@ -180,16 +180,16 @@ and ellipse = object
   method paper: paper Js.t Js.readonly_prop
 
   (* Animation along a path *)
-  method animateAlong:                path -> int -> unit Js.meth
-  method animateAlong_rotate:         path -> int -> bool Js.t -> unit Js.meth
-  method animateAlong_callback:       path -> int -> (unit -> unit) Js.callback -> unit Js.meth
-  method animateAlong_rotatecallback: path -> int -> bool Js.t -> (unit -> unit) Js.callback -> unit Js.meth
+  method animateAlong:                path Js.t -> int -> unit Js.meth
+  method animateAlong_rotate:         path Js.t -> int -> bool Js.t -> unit Js.meth
+  method animateAlong_callback:       path Js.t -> int -> (unit -> unit) Js.callback -> unit Js.meth
+  method animateAlong_rotatecallback: path Js.t -> int -> bool Js.t -> (unit -> unit) Js.callback -> unit Js.meth
 
   (* Animation along a path reversed *)
-  method animateAlongBack:                path -> int -> unit Js.meth
-  method animateAlongBack_rotate:         path -> int -> bool Js.t -> unit Js.meth
-  method animateAlongBack_callback:       path -> int -> (unit -> unit) Js.callback -> unit Js.meth
-  method animateAlongBack_rotatecallback: path -> int -> bool Js.t -> (unit -> unit) Js.callback -> unit Js.meth
+  method animateAlongBack:                path Js.t -> int -> unit Js.meth
+  method animateAlongBack_rotate:         path Js.t -> int -> bool Js.t -> unit Js.meth
+  method animateAlongBack_callback:       path Js.t -> int -> (unit -> unit) Js.callback -> unit Js.meth
+  method animateAlongBack_rotatecallback: path Js.t -> int -> bool Js.t -> (unit -> unit) Js.callback -> unit Js.meth
 
 end
 
@@ -198,16 +198,16 @@ and image = object
   method paper: paper Js.t Js.readonly_prop
 
   (* Animation along a path *)
-  method animateAlong:                path -> int -> unit Js.meth
-  method animateAlong_rotate:         path -> int -> bool Js.t -> unit Js.meth
-  method animateAlong_callback:       path -> int -> (unit -> unit) Js.callback -> unit Js.meth
-  method animateAlong_rotatecallback: path -> int -> bool Js.t -> (unit -> unit) Js.callback -> unit Js.meth
+  method animateAlong:                path Js.t -> int -> unit Js.meth
+  method animateAlong_rotate:         path Js.t -> int -> bool Js.t -> unit Js.meth
+  method animateAlong_callback:       path Js.t -> int -> (unit -> unit) Js.callback -> unit Js.meth
+  method animateAlong_rotatecallback: path Js.t -> int -> bool Js.t -> (unit -> unit) Js.callback -> unit Js.meth
 
   (* Animation along a path reversed *)
-  method animateAlongBack:                path -> int -> unit Js.meth
-  method animateAlongBack_rotate:         path -> int -> bool Js.t -> unit Js.meth
-  method animateAlongBack_callback:       path -> int -> (unit -> unit) Js.callback -> unit Js.meth
-  method animateAlongBack_rotatecallback: path -> int -> bool Js.t -> (unit -> unit) Js.callback -> unit Js.meth
+  method animateAlongBack:                path Js.t -> int -> unit Js.meth
+  method animateAlongBack_rotate:         path Js.t -> int -> bool Js.t -> unit Js.meth
+  method animateAlongBack_callback:       path Js.t -> int -> (unit -> unit) Js.callback -> unit Js.meth
+  method animateAlongBack_rotatecallback: path Js.t -> int -> bool Js.t -> (unit -> unit) Js.callback -> unit Js.meth
 
 end
 
@@ -216,16 +216,16 @@ and text = object
   method paper: paper Js.t Js.readonly_prop
 
   (* Animation along a path *)
-  method animateAlong:                path -> int -> unit Js.meth
-  method animateAlong_rotate:         path -> int -> bool Js.t -> unit Js.meth
-  method animateAlong_callback:       path -> int -> (unit -> unit) Js.callback -> unit Js.meth
-  method animateAlong_rotatecallback: path -> int -> bool Js.t -> (unit -> unit) Js.callback -> unit Js.meth
+  method animateAlong:                path Js.t -> int -> unit Js.meth
+  method animateAlong_rotate:         path Js.t -> int -> bool Js.t -> unit Js.meth
+  method animateAlong_callback:       path Js.t -> int -> (unit -> unit) Js.callback -> unit Js.meth
+  method animateAlong_rotatecallback: path Js.t -> int -> bool Js.t -> (unit -> unit) Js.callback -> unit Js.meth
 
   (* Animation along a path reversed *)
-  method animateAlongBack:                path -> int -> unit Js.meth
-  method animateAlongBack_rotate:         path -> int -> bool Js.t -> unit Js.meth
-  method animateAlongBack_callback:       path -> int -> (unit -> unit) Js.callback -> unit Js.meth
-  method animateAlongBack_rotatecallback: path -> int -> bool Js.t -> (unit -> unit) Js.callback -> unit Js.meth
+  method animateAlongBack:                path Js.t -> int -> unit Js.meth
+  method animateAlongBack_rotate:         path Js.t -> int -> bool Js.t -> unit Js.meth
+  method animateAlongBack_callback:       path Js.t -> int -> (unit -> unit) Js.callback -> unit Js.meth
+  method animateAlongBack_rotatecallback: path Js.t -> int -> bool Js.t -> (unit -> unit) Js.callback -> unit Js.meth
 
 end
 
@@ -235,16 +235,16 @@ and path = object
   method paper: paper Js.t Js.readonly_prop
 
   (* Animation along a path *)
-  method animateAlong:                path -> int -> unit Js.meth
-  method animateAlong_rotate:         path -> int -> bool Js.t -> unit Js.meth
-  method animateAlong_callback:       path -> int -> (unit -> unit) Js.callback -> unit Js.meth
-  method animateAlong_rotatecallback: path -> int -> bool Js.t -> (unit -> unit) Js.callback -> unit Js.meth
+  method animateAlong:                path Js.t -> int -> unit Js.meth
+  method animateAlong_rotate:         path Js.t -> int -> bool Js.t -> unit Js.meth
+  method animateAlong_callback:       path Js.t -> int -> (unit -> unit) Js.callback -> unit Js.meth
+  method animateAlong_rotatecallback: path Js.t -> int -> bool Js.t -> (unit -> unit) Js.callback -> unit Js.meth
 
   (* Animation along a path reversed *)
-  method animateAlongBack:                path -> int -> unit Js.meth
-  method animateAlongBack_rotate:         path -> int -> bool Js.t -> unit Js.meth
-  method animateAlongBack_callback:       path -> int -> (unit -> unit) Js.callback -> unit Js.meth
-  method animateAlongBack_rotatecallback: path -> int -> bool Js.t -> (unit -> unit) Js.callback -> unit Js.meth
+  method animateAlongBack:                path Js.t -> int -> unit Js.meth
+  method animateAlongBack_rotate:         path Js.t -> int -> bool Js.t -> unit Js.meth
+  method animateAlongBack_callback:       path Js.t -> int -> (unit -> unit) Js.callback -> unit Js.meth
+  method animateAlongBack_rotatecallback: path Js.t -> int -> bool Js.t -> (unit -> unit) Js.callback -> unit Js.meth
 
 
   method getTotalLength:  int Js.meth
@@ -259,16 +259,16 @@ and set = object
   method paper: paper Js.t Js.readonly_prop
 
   (* Animation along a path *)
-  method animateAlong:                path -> int -> unit Js.meth
-  method animateAlong_rotate:         path -> int -> bool Js.t -> unit Js.meth
-  method animateAlong_callback:       path -> int -> (unit -> unit) Js.callback -> unit Js.meth
-  method animateAlong_rotatecallback: path -> int -> bool Js.t -> (unit -> unit) Js.callback -> unit Js.meth
+  method animateAlong:                path Js.t -> int -> unit Js.meth
+  method animateAlong_rotate:         path Js.t -> int -> bool Js.t -> unit Js.meth
+  method animateAlong_callback:       path Js.t -> int -> (unit -> unit) Js.callback -> unit Js.meth
+  method animateAlong_rotatecallback: path Js.t -> int -> bool Js.t -> (unit -> unit) Js.callback -> unit Js.meth
 
   (* Animation along a path reversed *)
-  method animateAlongBack:                path -> int -> unit Js.meth
-  method animateAlongBack_rotate:         path -> int -> bool Js.t -> unit Js.meth
-  method animateAlongBack_callback:       path -> int -> (unit -> unit) Js.callback -> unit Js.meth
-  method animateAlongBack_rotatecallback: path -> int -> bool Js.t -> (unit -> unit) Js.callback -> unit Js.meth
+  method animateAlongBack:                path Js.t -> int -> unit Js.meth
+  method animateAlongBack_rotate:         path Js.t -> int -> bool Js.t -> unit Js.meth
+  method animateAlongBack_callback:       path Js.t -> int -> (unit -> unit) Js.callback -> unit Js.meth
+  method animateAlongBack_rotatecallback: path Js.t -> int -> bool Js.t -> (unit -> unit) Js.callback -> unit Js.meth
 
 
   method push:   'a element Js.t -> unit Js.meth
