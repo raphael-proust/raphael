@@ -1,5 +1,4 @@
-(* {{{ LICENSE
- * raphael_on_a_caml
+(* raphael_on_a_caml
  * Copyright (C) 2011 Raphaël Proust
  *
  * This program is free software; you can redistribute it and/or modify
@@ -15,7 +14,36 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
- }}} *)
+ *)
+
+
+
+(* {{{ partial bindings to the library*)
+
+
+class type rect_attr = object
+  method fill: Js.js_string Js.t Js.prop
+end
+
+class type rect = object
+  method attr: rect_attr Js.t Js.readonly_prop
+  method animate: rect_attr Js.t -> int -> unit Js.meth
+  method click  : (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
+end
+
+and path = object end
+
+and paper = object
+  method rect: int -> int -> int -> int -> rect Js.t Js.meth
+  method path: Js.js_string Js.t -> path Js.t Js.meth
+end
+
+let raphael_byId (id : string) (w : int) (h : int) : paper Js.t =
+  Js.Unsafe.fun_call
+    (Js.Unsafe.variable "Raphael")
+    [|Js.Unsafe.inject (Js.string id); Js.Unsafe.inject w; Js.Unsafe.inject h|]
+
+(* }}} *)
 
 
 (*A simple game in a simplified version*)
@@ -30,22 +58,22 @@ let dark_grey  = Js.string "rgba(230,230,230,.95)"
 
 (* {{{ The canvas on which the game board is drawn*)
 let paper =
-  Raphael.raphael_byId
-    (Js.string ("board"))
-    (cell_size * cell_count)
-    (cell_size * cell_count)
+  raphael_byId "board" (cell_size * cell_count) (cell_size * cell_count)
 (* }}} *)
 
 
 (* {{{ Drawing a grid in the background*)
 let () =
-  let line x0 y0 x1 y1 =
-    Js.string (Printf.sprintf "M%d %dL%d %d" x0 y0 x1 y1)
-  in
   let begining = 0 and ending = cell_size * cell_count in
+  let hz_line y =
+    Js.string (Printf.sprintf "M%d %dL%d %d" begining y ending y)
+  in
+  let vt_line x =
+    Js.string (Printf.sprintf "M%d %dL%d %d" x begining x ending)
+  in
   for i = 0 to cell_count do
-    ignore (paper##path (line begining (i * cell_size) ending (i * cell_size)));
-    ignore (paper##path (line (i * cell_size) begining (i * cell_size) ending))
+    ignore (paper##path (hz_line (i * cell_size)));
+    ignore (paper##path (vt_line (i * cell_size)))
   done
 (* }}} *)
 
