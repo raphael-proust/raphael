@@ -1,4 +1,5 @@
-(* raphael_on_a_caml
+(* {{{ LICENSE
+ * raphael_on_a_caml
  * Copyright (C) 2011 Raphaël Proust
  *
  * This program is free software; you can redistribute it and/or modify
@@ -14,21 +15,20 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
- *)
+ * }}} *)
 
 
 
-(* {{{ partial bindings to the library*)
-
+(* {{{ partial bindings to the vector graphics library RaphaelJS*)
 
 class type rect_attr = object
   method fill: Js.js_string Js.t Js.prop
 end
 
 class type rect = object
-  method attr: rect_attr Js.t Js.readonly_prop
+  method attr : rect_attr Js.t Js.readonly_prop
   method animate: rect_attr Js.t -> int -> unit Js.meth
-  method click  : (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
+  method click : (Dom_html.mouseEvent Js.t -> unit) Js.callback -> unit Js.meth
 end
 
 and path = object end
@@ -38,15 +38,13 @@ and paper = object
   method path: Js.js_string Js.t -> path Js.t Js.meth
 end
 
-let raphael_byId (id : string) (w : int) (h : int) : paper Js.t =
+let raphael_byId id w h : paper Js.t =
   Js.Unsafe.fun_call
     (Js.Unsafe.variable "Raphael")
     [|Js.Unsafe.inject (Js.string id); Js.Unsafe.inject w; Js.Unsafe.inject h|]
 
 (* }}} *)
 
-
-(*A simple game in a simplified version*)
 
 (* {{{ constants*)
 let cell_size  = 25
