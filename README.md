@@ -3,9 +3,9 @@
 
 ##Foreword
 
-This folder contains raphael bindings for the js_of_ocaml compiler. It is
-included in a raphael repository in order to keep track of the raphael project.
-This binding doesn't include raphael's code in anyway.
+This folder contains raphael bindings for the OCaml language through the
+js_of_ocaml compiler. It includes a raphael repository in order to keep track of
+the raphael project. This binding doesn't include raphael's code in anyway.
 
 ##Usage
 
