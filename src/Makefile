@@ -4,7 +4,7 @@ include ../Makefile.common
 ####
 
 
-MLS=attr.ml raphael.ml
+MLS=attr.ml raphael.ml raffaello.ml
 MLIS=$(MLS:ml=mli)
 CMIS=$(MLS:ml=cmi)
 CMOS=$(MLS:ml=cmo)
