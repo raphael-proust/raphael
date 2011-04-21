@@ -286,6 +286,8 @@ let js_string_of_color c =
   | HSLA_percent (h,s,l,a) -> Js.string (Printf.sprintf "hsl(%d%%,%d%%,%d%%,%f)" h s l a)
 
 
+let paint (c:color) : Attr.paint Js.t = Js.Unsafe.coerce (js_string_of_color c)
+
 
 
 

@@ -225,8 +225,6 @@ and paper = object
 
   method setSize: int -> int -> unit Js.meth
 
-  method getRGB: Js.js_string Js.t -> Attr.paint Js.t Js.meth
-
   method angle_hz: int -> int -> int -> int -> int Js.meth
   method angle:    int -> int -> int -> int -> int -> int -> int Js.meth
 
