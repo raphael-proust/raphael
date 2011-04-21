@@ -23,8 +23,8 @@
 (* {{{ constants*)
 let cell_size  = 25
 let cell_count = 10
-let light_grey = Js.string "rgba(26,26,26,.95)"
-let dark_grey  = Js.string "rgba(230,230,230,.95)"
+let light_grey = Raffaello.paint Raffaello.Lightslategrey
+let dark_grey  = Raffaello.paint Raffaello.Darkslategrey
 (* }}} *)
 
 

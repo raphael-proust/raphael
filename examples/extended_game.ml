@@ -22,9 +22,9 @@
 (*constants*)
 let cell_size  = 25
 let cell_count = 10
-let light_grey = Js.string "rgb(26,26,26)"
-let grey       = Js.string "rgb(128,128,128)"
-let dark_grey  = Js.string "rgb(230,230,230)"
+let light_grey = Raffaello.paint Raffaello.Lightslategrey
+let grey       = Raffaello.paint Raffaello.Slategrey
+let dark_grey  = Raffaello.paint Raffaello.Darkslategrey
 let ( >>= )    = Lwt.( >>= )
 
 (*The canvas on which the game board is drawn*)

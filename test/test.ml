@@ -118,3 +118,19 @@ let _ =
       Lwt.ignore_result (anim_c ())
 
     )
+
+let _ =
+  test "colors"
+  (fun p ->
+    let r i =
+      let s = p##rect(2*i, i + 5, 3, 4) in
+      let f = s##attr in
+      f##fill <-
+        (Raffaello.paint (Raffaello.HSLA_deg (3*i, 0.2, 0.3, 0.5)));
+      s##animate(f, 10)
+    in
+    for i = 10 to 90 do
+      r i
+    done
+  )
+

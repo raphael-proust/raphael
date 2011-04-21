@@ -37,16 +37,13 @@ end
 class type graphic_attr = object
   method opacity: float prop
   method rotation: int prop
-  method fill: js_string t prop
-  method stroke: js_string t prop
+  method fill: paint t prop
+  method stroke: paint t prop
 end
 
 (* Attributes of shapes *)
-class type basic_shape_attr = object
-  inherit graphic_attr
-end
 class type shape_attr = object
-  inherit basic_shape_attr
+  inherit graphic_attr
 end
 
 class type centered_attr = object
@@ -69,16 +66,13 @@ end
 (* Attributes for each element class of Raphael *)
 
 class type circle_attr = object
-  inherit common_attr
   inherit shape_attr
   inherit centered_attr
 
   method r: int prop
-
 end
 
 class type ellipse_attr = object
-  inherit common_attr
   inherit shape_attr
   inherit centered_attr
 
@@ -87,14 +81,12 @@ class type ellipse_attr = object
 end
 
 class type rect_attr = object
-  inherit common_attr
   inherit shape_attr
   inherit dimensioned_attr
   inherit positioned_attr
 end
 
 class type image_attr = object
-  inherit common_attr
   inherit shape_attr
   inherit dimensioned_attr
   inherit positioned_attr
@@ -104,7 +96,7 @@ class type image_attr = object
 end
 
 class type path_attr = object
-  inherit basic_shape_attr
+  inherit shape_attr
 
   method path: js_string t prop
 end

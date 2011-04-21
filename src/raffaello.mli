@@ -195,3 +195,5 @@ type color =
   | HSLA_percent of (int * int * int * float)
 
 val js_string_of_color : color -> Js.js_string Js.t
+
+val paint : color -> Attr.paint Js.t
