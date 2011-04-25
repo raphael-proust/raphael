@@ -116,20 +116,19 @@ let _ =
       Lwt.ignore_result (anim_e ());
       Lwt.ignore_result (anim_r ());
       Lwt.ignore_result (anim_c ())
-
     )
 
 let _ =
   test "colors"
   (fun p ->
     let r i =
-      let s = p##rect(2*i, i + 5, 3, 4) in
+      let s = p##rect(3*i, i + 10, i/2, 10) in
       let f = s##attr in
       f##fill <-
-        (Raffaello.paint (Raffaello.HSLA_deg (3*i, 0.2, 0.3, 0.5)));
+        ((CSS.color (CSS.HSLA (3*i, 80, 50, 0.3))) :> Js.js_string Js.t);
       s##animate(f, 10)
     in
-    for i = 10 to 90 do
+    for i = 10 to 30 do
       r i
     done
   )

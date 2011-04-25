@@ -26,8 +26,6 @@ open Js
 (*TODO: font and paint classes *)
 class type font = object
 end
-class type paint = object
-end
 
 (* Super classes: just there as a coding good practice. *)
 
@@ -37,8 +35,8 @@ end
 class type graphic_attr = object
   method opacity: float prop
   method rotation: int prop
-  method fill: paint t prop
-  method stroke: paint t prop
+  method fill: js_string t prop
+  method stroke: js_string t prop
 end
 
 (* Attributes of shapes *)

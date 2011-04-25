@@ -18,16 +18,13 @@
 
 class type font = object end
 
-(*constructor available in Raffaello*)
-class type paint = object end
-
 
 class type graphic_attr =
 object
   method opacity: float Js.prop
   method rotation: int Js.prop
-  method fill: paint Js.t Js.prop
-  method stroke: paint Js.t Js.prop
+  method fill: Js.js_string Js.t Js.prop
+  method stroke: Js.js_string Js.t Js.prop
 end
 
 (* Attributes of shapes *)
