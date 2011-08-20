@@ -94,5 +94,8 @@ class type text_attr = object
   method font: font Js.prop
 end
 
-class type set_attr = object end
+class type set_attr = object
+  inherit positioned_attr
+  inherit dimensioned_attr
+end
 
