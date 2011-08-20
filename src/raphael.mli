@@ -270,10 +270,10 @@ and set = object
 
 
   method push:   'a element Js.t -> unit Js.meth
-  method push_2: 'a element Js.t-> 'a element Js.t-> unit Js.meth
-  method push_3: 'a element Js.t-> 'a element Js.t-> 'a element Js.t-> unit Js.meth
-  method push_4: 'a element Js.t-> 'a element Js.t-> 'a element Js.t-> 'a element Js.t-> unit Js.meth
-  method push_5: 'a element Js.t-> 'a element Js.t-> 'a element Js.t-> 'a element Js.t-> 'a element Js.t-> unit Js.meth
+  method push_2: 'a element Js.t -> 'a element Js.t -> unit Js.meth
+  method push_3: 'a element Js.t -> 'a element Js.t -> 'a element Js.t -> unit Js.meth
+  method push_4: 'a element Js.t -> 'a element Js.t -> 'a element Js.t -> 'a element Js.t -> unit Js.meth
+  method push_5: 'a element Js.t -> 'a element Js.t -> 'a element Js.t -> 'a element Js.t -> 'a element Js.t-> unit Js.meth
 
   method items: 'a element Js.t Js.js_array Js.t Js.readonly_prop
   method length: int Js.readonly_prop
