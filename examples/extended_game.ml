@@ -35,7 +35,7 @@ let paper =
     (cell_size * cell_count)
 
 
-let _ = (*The grid*)
+let () = (*The grid*)
   let line x0 y0 x1 y1 =
     Js.string (Printf.sprintf "M%d %dL%d %d" x0 y0 x1 y1)
   in
@@ -44,6 +44,8 @@ let _ = (*The grid*)
     ignore (paper##path (line begining (i * cell_size) ending (i * cell_size)));
     ignore (paper##path (line (i * cell_size) begining (i * cell_size) ending))
   done
+
+let hits = ref 0 (*number of clicks*)
 
 
 let board = (*The game board: a matrix of squares with a boolean flag*)
@@ -61,6 +63,50 @@ let board = (*The game board: a matrix of squares with a boolean flag*)
         (false, r)
       )
     )
+
+
+(*score board*)
+
+let score_board =
+  Raphael.raphael_byId
+    (Js.string "score")
+    100
+    40
+
+let get_score () =
+  let count =
+    let x = ref 0 in
+    Array.iter (Array.iter (fun (b, _) -> if b then incr x else ())) board;
+    !x
+  in
+  let ratio =
+    (float_of_int count) /. (float_of_int (cell_count * cell_count))
+  in
+  max ratio (1. -. ratio)
+
+let score_board_content =
+  ref (score_board##text( 0
+                        , 0
+                        , Js.string "score_board"
+                        )
+  )
+
+let update_score_board () =
+  let score_string =
+    let raw_score = get_score () in
+    let hits = !hits in
+    Js.string (
+      Printf.sprintf "raw: %f\nhits: %d\nscore: %f"
+        raw_score
+        hits
+        (raw_score /. (float_of_int hits))
+    )
+  in
+  (!score_board_content)##remove();
+  score_board_content := score_board##text(50,20,score_string)
+
+let () = update_score_board ()
+
 
 let flip_1 x y = (*flip one cell on the board*)
   if x < 0 || x >= cell_count || y < 0 || y >= cell_count then
@@ -91,14 +137,14 @@ let flip_x i j = (*flip a diagonal cross (AKA "x")*)
 
 let flip, set_plus, set_x =
   let f = ref flip_plus in
-  ((fun x y -> !f x y),
+  ((fun x y -> !f x y; incr hits; update_score_board ()),
     (fun () -> f := flip_plus),
     (fun () -> f := flip_x)
   )
 
 let update_hint i j = ()
 
-let _ = (*initialize the board*)
+let () = (*initialize the board*)
   Array.iteri
     (fun i arr -> Array.iteri
       (fun j (_, r) -> (*for each cell,*)
@@ -114,12 +160,13 @@ let _ = (*initialize the board*)
     board
 
 
+
 (*controls*)
 
 let control_panel =
   Raphael.raphael_byId
     (Js.string "controls")
-    (cell_size * 8)
+    (cell_size * 9)
     (cell_size * 4)
 
 let c1 = cell_size / 2
