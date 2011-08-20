@@ -96,7 +96,7 @@ let update_score_board () =
     let raw_score = get_score () in
     let hits = !hits in
     Js.string (
-      Printf.sprintf "raw: %f\nhits: %d\nscore: %f"
+      Printf.sprintf "score: %f\nhits: %d\nratio: %f"
         raw_score
         hits
         (raw_score /. (float_of_int hits))
