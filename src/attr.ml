@@ -35,8 +35,8 @@ end
 class type graphic_attr = object
   method opacity: float prop
   method rotation: int prop
-  method fill: CSS.js_color prop
-  method stroke: CSS.js_color prop
+  method fill: CSS.Color.js_t prop
+  method stroke: CSS.Color.js_t prop
 end
 
 (* Attributes of shapes *)

@@ -22,9 +22,9 @@
 (*constants*)
 let cell_size  = 25
 let cell_count = 10
-let light_grey = CSS.color (CSS.Color_name CSS.Lightslategrey)
-let grey       = CSS.color (CSS.Color_name CSS.Slategrey)
-let dark_grey  = CSS.color (CSS.Color_name CSS.Darkslategrey)
+let light_grey = CSS.Color.js (CSS.Color.Name CSS.Color.Lightslategrey)
+let grey       = CSS.Color.js (CSS.Color.Name CSS.Color.Slategrey)
+let dark_grey  = CSS.Color.js (CSS.Color.Name CSS.Color.Darkslategrey)
 let ( >>= )    = Lwt.( >>= )
 
 (*The canvas on which the game board is drawn*)

@@ -125,7 +125,7 @@ let _ =
       let s = p##rect(3*i, i + 10, i/2, 10) in
       let f = s##attr in
       f##fill <-
-        (CSS.color (CSS.HSLA (3*i, 80, 50, 0.3)));
+        (CSS.Color.js (CSS.Color.HSLA (3*i, 80, 50, 0.3)));
       s##animate(f, 10)
     in
     for i = 10 to 30 do

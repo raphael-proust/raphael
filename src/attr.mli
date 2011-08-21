@@ -23,8 +23,8 @@ class type graphic_attr =
 object
   method opacity: float Js.prop
   method rotation: int Js.prop
-  method fill: CSS.js_color Js.prop
-  method stroke: CSS.js_color Js.prop
+  method fill: CSS.Color.js_t Js.prop
+  method stroke: CSS.Color.js_t Js.prop
 end
 
 (* Attributes of shapes *)
